@@ -43,8 +43,6 @@ public class DataFetcher {
 
         String uri = builder.toUriString();
 
-        System.out.println(uri);
-
         try {
             RestTemplate restTemplate = new RestTemplate();
             Optional<FoodApi> apiOptional = Optional.ofNullable(restTemplate.getForObject(uri, FoodApi.class));
