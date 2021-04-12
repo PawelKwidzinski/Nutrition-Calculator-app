@@ -8,9 +8,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.kwidzinski.caloriecalculator.api.model.IngredientApi;
 import pl.kwidzinski.caloriecalculator.api.remotedata.DataFetcher;
-import pl.kwidzinski.caloriecalculator.model.Ingredient;
-import pl.kwidzinski.caloriecalculator.model.dto.UserInput;
+import pl.kwidzinski.caloriecalculator.dto.UserInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +20,12 @@ import java.util.List;
 public class AppController {
 
     private final DataFetcher dataFetcher;
-    private List<Ingredient> ingredientListFromApi;
+    private List<IngredientApi> ingredientListFromApi;
 
     @Autowired
     public AppController(final DataFetcher dataFetcher) {
         this.dataFetcher = dataFetcher;
-        ingredientListFromApi = new ArrayList<>();
+        this.ingredientListFromApi = new ArrayList<>();
     }
 
     @GetMapping("/search")
@@ -36,21 +36,27 @@ public class AppController {
 
     @PostMapping("/search")
     public String showSearchingIngredients(@Validated UserInput userInput, BindingResult result, Model model) {
-
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             return "ingredient-main";
         }
         try {
             int weight = Integer.parseInt(userInput.getWeight());
             if (weight <= 0) {
-                model.addAttribute("error", "Weight must be greater than zero");
+                model.addAttribute("error", "Weight must be greater than zero!");
                 return "ingredient-main";
             }
+
             ingredientListFromApi = dataFetcher.fetchDataFromApi(userInput.getIngredientName(), weight);
+
+            if (ingredientListFromApi.size() == 0) {
+                model.addAttribute("error", "Searching ingredient not found!");
+                return "ingredient-main";
+            }
+
             model.addAttribute("foundIngredients", ingredientListFromApi);
             return "ingredient-main";
         } catch (NumberFormatException e) {
-            model.addAttribute("error", "Weight must be a number");
+            model.addAttribute("error", "Weight must be a number!");
             return "ingredient-main";
         }
     }
