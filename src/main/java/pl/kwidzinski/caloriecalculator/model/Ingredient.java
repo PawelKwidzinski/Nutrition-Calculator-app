@@ -1,12 +1,19 @@
 package pl.kwidzinski.caloriecalculator.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "ingredients")
 public class Ingredient {
 
+    @Id
+    @GeneratedValue(generator = "inc")
+    @GenericGenerator(name = "inc", strategy = "increment")
+    private Long id;
     private String name;
-    private String imageUrl;
-    private String unit;
     private Integer quantity;
     private Integer calories;
     private BigDecimal protein;
@@ -14,7 +21,18 @@ public class Ingredient {
     private BigDecimal carbs;
     private BigDecimal fiber;
 
+    @ManyToOne
+    private Meal meal;
+
     public Ingredient() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    void setId(final Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -23,22 +41,6 @@ public class Ingredient {
 
     public void setName(final String name) {
         this.name = name;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(final String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(final String unit) {
-        this.unit = unit;
     }
 
     public Integer getQuantity() {
@@ -88,4 +90,5 @@ public class Ingredient {
     public void setFiber(final BigDecimal fiber) {
         this.fiber = fiber;
     }
+
 }
