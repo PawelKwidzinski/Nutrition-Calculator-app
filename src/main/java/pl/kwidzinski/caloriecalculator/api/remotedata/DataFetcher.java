@@ -8,7 +8,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.kwidzinski.caloriecalculator.api.model.FoodApi;
-import pl.kwidzinski.caloriecalculator.model.Ingredient;
+import pl.kwidzinski.caloriecalculator.api.model.IngredientApi;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class DataFetcher {
 
     private final Logger logger = LoggerFactory.getLogger(DataFetcher.class);
 
-    public List<Ingredient> fetchDataFromApi(String ingredient, int weight) {
+    public List<IngredientApi> fetchDataFromApi(String ingredient, Integer weight) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl)
                 .queryParam(appIdParam, appId)
                 .queryParam(appKeyParam, appKey)
@@ -53,46 +53,46 @@ public class DataFetcher {
         return new ArrayList<>();
     }
 
-    private List<Ingredient> mapIngredients(Optional<FoodApi> foodApi, int weight) {
+    private List<IngredientApi> mapIngredients(Optional<FoodApi> foodApi, int weight) {
         return foodApi.map(api -> api.getHints().stream()
                 .map(element -> {
-                    Ingredient ingredient = new Ingredient();
-                    ingredient.setName(element.getFood().getLabel());
-                    ingredient.setImageUrl(element.getFood().getImage());
-                    ingredient.setUnit("g");
-                    ingredient.setQuantity(weight);
+                    IngredientApi ingredientApi = new IngredientApi();
+                    ingredientApi.setName(element.getFood().getLabel());
+                    ingredientApi.setImageUrl(element.getFood().getImage());
+                    ingredientApi.setUnit("g");
+                    ingredientApi.setQuantity(weight);
 
                     if (element.getFood().getNutrients().getEnercKcal() != null) {
-                        ingredient.setCalories(calculateCalories(element.getFood().getNutrients().getEnercKcal(), weight));
+                        ingredientApi.setCalories(calculateCalories(element.getFood().getNutrients().getEnercKcal(), weight));
                     } else {
-                        ingredient.setCalories(0);
+                        ingredientApi.setCalories(0);
                     }
 
                     if (element.getFood().getNutrients().getProcnt() != null) {
-                        ingredient.setProtein(calculateNutrients(element.getFood().getNutrients().getProcnt(), weight));
+                        ingredientApi.setProtein(calculateNutrients(element.getFood().getNutrients().getProcnt(), weight));
                     } else {
-                        ingredient.setProtein(BigDecimal.ZERO);
+                        ingredientApi.setProtein(BigDecimal.ZERO);
                     }
 
                     if (element.getFood().getNutrients().getFat() != null) {
-                        ingredient.setFat(calculateNutrients(element.getFood().getNutrients().getFat(), weight));
+                        ingredientApi.setFat(calculateNutrients(element.getFood().getNutrients().getFat(), weight));
                     } else {
-                        ingredient.setFat(BigDecimal.ZERO);
+                        ingredientApi.setFat(BigDecimal.ZERO);
                     }
 
                     if (element.getFood().getNutrients().getChocdf() != null) {
-                        ingredient.setCarbs(calculateNutrients(element.getFood().getNutrients().getChocdf(), weight));
+                        ingredientApi.setCarbs(calculateNutrients(element.getFood().getNutrients().getChocdf(), weight));
                     } else {
-                        ingredient.setCarbs(BigDecimal.ZERO);
+                        ingredientApi.setCarbs(BigDecimal.ZERO);
                     }
 
                     if (element.getFood().getNutrients().getFibtg() != null) {
-                        ingredient.setFiber(calculateNutrients(element.getFood().getNutrients().getFibtg(), weight));
+                        ingredientApi.setFiber(calculateNutrients(element.getFood().getNutrients().getFibtg(), weight));
                     } else {
-                        ingredient.setFiber(BigDecimal.ZERO);
+                        ingredientApi.setFiber(BigDecimal.ZERO);
                     }
 
-                    return ingredient;
+                    return ingredientApi;
                 }).collect(Collectors.toList())).orElse(Collections.emptyList());
     }
 
