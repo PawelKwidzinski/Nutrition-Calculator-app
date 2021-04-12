@@ -9,18 +9,24 @@
 
 <header th:replace="fragments :: navigator"></header>
 <div class="container">
-    <form th:action="@{/ingredients/search}" th:object="${userInput}" method="post" class="col-md-12">
+    <h1>Find Ingredients</h1>
+    <form class="col-md-12 search" th:action="@{/ingredients/search}" th:object="${userInput}" method="post">
         <div class="row col-md-12 form-row-container">
             <div class="col-md-4">
+                <label for="exampleFormControlInput1">Ingredient</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Ingredient name"
                        th:field="*{ingredientName}">
             </div>
             <div class="col-md-4">
+                <label for="exampleFormControlInput2">Weight</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="Weight (gram)"
                        th:field="*{weight}">
             </div>
-            <div class="col-md-4 find-button">
-                <button type="submit" class="btn btn-primary col-md-12">Send</button>
+            <div class="col-md-4">
+                <label>Action</label>
+                <div class="col-md-12 form-row-buttons">
+                    <button type="submit" class="btn btn-primary col-md-12 find-button">Send</button>
+                </div>
             </div>
         </div>
         <div class="row col-md-12 error-row-container">
@@ -47,26 +53,29 @@
             <div class="col-sm-2">Nutrients</div>
             <div class="col-sm-2">Actions</div>
         </div>
-    </div>
-    <div class="row col-md-12 list-row" th:each="ingredient : ${foundIngredients}">
-        <div class="col-md-2">
-            <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{/icons/dinner.png}">
-            <img class="img" th:unless="${ingredient.getImageUrl() == null}" th:src="@{${ingredient.getImageUrl()}}">
-        </div>
-        <div class="col-md-1" th:text="${ingredient.getQuantity()}"></div>
-        <div class="col-md-1" th:text="${ingredient.getUnit()}"></div>
-        <div class="col-md-2" th:text="${ingredient.getName()}"></div>
-        <div class="col-md-2" th:text="${ingredient.getCalories() + ' kcal'}"></div>
-        <div class="col-md-2">
-            <p th:text="'Protein: ' + ${ingredient.getProtein() + ' g'}"></p>
-            <p th:text="'Fat: ' + ${ingredient.getFat() + ' g'}"></p>
-            <p th:text="'Carbs: ' + ${ingredient.getCarbs() + ' g'}"></p>
-        </div>
-        <div class="row col-md-2">
-            <div class="col-md-12">
-                <a th:href="@{'/ingredients/edit/' + ${''}}" >
-                    <button type="button" class="btn btn-primary">Add</button>
-                </a>
+
+        <div class="row col-md-12 list-header-row" th:each="ingredient : ${foundIngredients}">
+            <div class="col-md-2">
+                <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{/icons/restaurant.png}">
+                <img class="img" th:unless="${ingredient.getImageUrl() == null}"
+                     th:src="@{${ingredient.getImageUrl()}}">
+            </div>
+            <div class="col-md-1" th:text="${ingredient.getQuantity()}"></div>
+            <div class="col-md-1" th:text="${ingredient.getUnit()}"></div>
+            <div class="col-md-2" th:text="${ingredient.getName()}"></div>
+            <div class="col-md-2" th:text="${ingredient.getCalories() + ' kcal'}"></div>
+            <div class="col-md-2">
+                <p th:text="'Protein: ' + ${ingredient.getProtein() + ' g'}"></p>
+                <p th:text="'Fat: ' + ${ingredient.getFat() + ' g'}"></p>
+                <p th:text="'Carbs: ' + ${ingredient.getCarbs() + ' g'}"></p>
+                <p th:text="'Fiber: ' + ${ingredient.getFiber() + ' g'}"></p>
+            </div>
+            <div class="row col-md-2">
+                <div class="col-md-12">
+                    <a th:href="@{'/ingredients/edit/' + ${''}}">
+                        <button type="button" class="btn btn-primary">Add</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
