@@ -9,7 +9,6 @@ body {
     background-attachment: fixed;
 }
 
-
 .navbar.fixed-top {
     background-color: lightgray;
     font-family: 'Oswald', sans-serif;
@@ -37,6 +36,9 @@ body {
 .container {
     margin: 90px auto 50px;
 }
+.search {
+    padding: 0;
+}
 
 .row {
     margin: 0 auto;
@@ -46,17 +48,8 @@ body {
     margin-top: 25px;
 }
 
-.welcome {
-    text-align: center;
-    margin: 30px auto;
-    color: black;
-    border: solid 1px #5a5a5a;
-    border-radius: 5px;
-    background-color: lightgrey;
-    opacity: 0.85;
-}
-
 .list-container {
+    width: 60vw;
     text-align: center;
     margin: 30px auto;
     color: black;
@@ -71,14 +64,13 @@ body {
     font: bold 1.3rem Arial;
     background-color: white;
     border: solid 1px #5a5a5a;
-    margin: 1px;
-    padding: 2px 0 2px 0;
+    margin: 3px auto;
+    padding: 5px 0 5px 0;
 }
 
 .list-row {
     text-align: center;
     margin: 10px auto;
-    padding: 0 15px ;
 }
 
 .form-container {
@@ -106,22 +98,19 @@ body {
     padding: 5px 0 2px 0;
 }
 
-select {
-    text-align-last: center;
-}
-
 input {
     text-align: center;
 }
 
 .form-row-container label{
+    text-align: center;
     padding: 10px 10px;
     margin: 5px 5px;
 }
 
 .form-control {
-    padding: 5px 5px;
-    margin: 5px 5px;
+    padding: 5px 0;
+    margin: 5px 0;
     height: calc(1.5em + 1rem + 2px);
 }
 
@@ -129,27 +118,30 @@ input {
     line-height: 0;
     font-weight: bold;
 }
+.action-buttons {
+    left: 40px;
+    padding: 0;
+}
 
 .form-row-buttons {
     position: center;
-    margin-bottom: 15px;
+    padding: 0;
 }
-.find-row {
-    margin: -15px auto;
-}
-
 .find-row {
     margin: -15px auto;
 }
 
 .find-button{
     position: center;
-    margin: 7px 0;
+
+    margin: 5px 0;
+    height: calc(1.5em + 1rem + 2px);
 }
 
 .img {
-    height: 65px;
-    width: 65px;
+    right: 30px;
+    height: 120px;
+    width: 120px;
 }
 
 .stretched-link:after {
