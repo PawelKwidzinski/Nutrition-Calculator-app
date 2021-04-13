@@ -59,18 +59,36 @@ body {
     opacity: 0.85;
 }
 
+.list-container h1 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
 .list-header-row {
     border-radius: 5px;
-    font: bold 1.3rem Arial;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: bold;
     background-color: white;
     border: solid 1px #5a5a5a;
-    margin: 3px auto;
+    margin: 5px auto;
     padding: 5px 0 5px 0;
 }
 
 .list-row {
     text-align: center;
     margin: 10px auto;
+}
+
+.list-result-row {
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    border: solid 1px #5a5a5a;
+    margin: 5px auto;
+    padding: 5px 0;
 }
 
 .form-container {
@@ -139,9 +157,10 @@ input {
 }
 
 .img {
-    right: 30px;
-    height: 120px;
-    width: 120px;
+    /*right: 30px;*/
+   object-fit: contain;
+    height: 100%;
+    width: 100%;
 }
 
 .stretched-link:after {
