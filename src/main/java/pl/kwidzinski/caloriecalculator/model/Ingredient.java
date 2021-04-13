@@ -13,7 +13,10 @@ public class Ingredient {
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
+    private String foodId;
     private String name;
+    private String imageUrl;
+    private String unit;
     private Integer quantity;
     private Integer calories;
     private BigDecimal protein;
@@ -31,8 +34,12 @@ public class Ingredient {
         return id;
     }
 
-    void setId(final Long id) {
-        this.id = id;
+    public String getFoodId() {
+        return foodId;
+    }
+
+    public void setFoodId(final String foodId) {
+        this.foodId = foodId;
     }
 
     public String getName() {
@@ -41,6 +48,22 @@ public class Ingredient {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(final String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(final String unit) {
+        this.unit = unit;
     }
 
     public Integer getQuantity() {
@@ -91,4 +114,11 @@ public class Ingredient {
         this.fiber = fiber;
     }
 
+    public Meal getMeal() {
+        return meal;
+    }
+
+    public void setMeal(final Meal meal) {
+        this.meal = meal;
+    }
 }
