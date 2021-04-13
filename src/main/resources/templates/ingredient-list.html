@@ -8,41 +8,11 @@
 <body>
 
 <header th:replace="fragments :: navigator"></header>
-<div class="container">
-    <h1>Find Ingredients</h1>
-    <form class="col-md-12 search" th:action="@{/ingredients/search}" th:object="${userInput}" method="post">
-        <div class="row col-md-12 form-row-container">
-            <div class="col-md-4">
-                <label for="exampleFormControlInput1">Ingredient</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Ingredient name"
-                       th:field="*{ingredientName}">
-            </div>
-            <div class="col-md-4">
-                <label for="exampleFormControlInput2">Weight</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="Weight (gram)"
-                       th:field="*{weight}">
-            </div>
-            <div class="col-md-4">
-                <label>Action</label>
-                <div class="col-md-12 form-row-buttons">
-                    <button type="submit" class="btn btn-primary col-md-12 find-button">Send</button>
-                </div>
-            </div>
-        </div>
-        <div class="row col-md-12 error-row-container">
-            <div class="col-md-4 alert text-danger" role="alert" th:if="${#fields.hasErrors('*')}"
-                 th:each="err : ${#fields.errors('*')}" th:text="${err}">
-            </div>
-            <div class="col-md-4 alert text-danger" role="alert" th:if="${error != null}" th:text="${error}">
-            </div>
-        </div>
-    </form>
-</div>
-<br>
+
 <div class="container">
     <div class="row col-md-12 list-container" th:if="${foundIngredients != null}">
         <div class="row col-md-12">
-            <h1>Ingredient List</h1>
+            <h1>Ingredient list</h1>
         </div>
         <div class="row col-md-12 list-header-row">
             <div class="col-md-2">Image</div>
@@ -54,7 +24,7 @@
             <div class="col-sm-2">Actions</div>
         </div>
 
-        <div class="row col-md-12 list-header-row" th:each="ingredient : ${foundIngredients}">
+        <div class="row col-md-12 list-result-row" th:each="ingredient : ${foundIngredients}">
             <div class="col-md-2">
                 <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{/icons/restaurant.png}">
                 <img class="img" th:unless="${ingredient.getImageUrl() == null}"
@@ -72,8 +42,8 @@
             </div>
             <div class="row col-md-2">
                 <div class="col-md-12">
-                    <a th:href="@{'/ingredients/edit/' + ${''}}">
-                        <button type="button" class="btn btn-primary">Add</button>
+                    <a th:href="@{/ingredients/add/{id}(id=${ingredient.getFoodId()})}">
+                        <button type="button" class="btn btn-primary">Save</button>
                     </a>
                 </div>
             </div>
