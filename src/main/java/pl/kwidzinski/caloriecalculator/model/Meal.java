@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.math.BigDecimal;
@@ -19,6 +20,9 @@ public class Meal {
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
 
+    @NotBlank(message = "Meal name cannot be empty")
+    private String mealName;
+
     @NotNull(message = "Date cannot be empty")
     @PastOrPresent(message = "Date cannot be from future")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -33,7 +37,10 @@ public class Meal {
     @OneToMany(mappedBy = "meal")
     private Set<Ingredient> ingredients;
 
-     public Long getId() {
+    public Meal() {
+    }
+
+    public Long getId() {
         return id;
     }
 
@@ -41,7 +48,15 @@ public class Meal {
         this.id = id;
     }
 
-     public LocalDate getDate() {
+     public String getMealName() {
+        return mealName;
+    }
+
+     public void setMealName(final String mealName) {
+        this.mealName = mealName;
+    }
+
+    public LocalDate getDate() {
         return date;
     }
 
