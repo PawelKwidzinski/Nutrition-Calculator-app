@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
+</head>
+<body>
+
+<header th:replace="fragments :: navigator"></header>
+
+<div class="container">
+    <div class="row col-md-12 list-container" th:if="${meals != null}">
+        <div class="row col-md-12">
+            <h1>Ingredient list</h1>
+        </div>
+        <div class="row col-md-12 list-header-row">
+            <div class="col-md-4">Name</div>
+            <div class="col-md-4">Date</div>
+<!--            <div class="col-md-4">Date</div>-->
+        </div>
+
+        <div class="row col-md-12 list-result-row" th:each="meal : ${meals}">
+            <div class="col-md-4" th:text="${meal.getMealName()}"></div>
+            <div class="col-md-4" th:text="${meal.getDate()}"></div>
+
+            <div class="row col-md-4">
+<!--                <div class="col-md-12">-->
+<!--                    <a th:href="@{/ingredients/add/{id}(id=${ingredient.getFoodId()})}">-->
+<!--                        <button type="button" class="btn btn-primary">Save</button>-->
+<!--                    </a>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: footerscripts"></div>
+</html>
