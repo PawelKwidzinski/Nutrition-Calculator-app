@@ -9,18 +9,57 @@
 
 <header th:replace="fragments :: navigator"></header>
 <div class="container">
-    <form class="col-md-12 form-container" th:action="@{/ingredients/search}" th:object="${userInput}" method="post">
-        <h1>Find Ingredients and prepare your Meal</h1>
+    <form class="col-md-12 form-container" th:action="@{/ingredients/add}" th:object="${ingredient}" method="post">
+        <h1>Add Ingredients and prepare your Meal</h1>
         <div class="row col-md-12 form-row-container">
             <div class="col-md-4">
                 <label for="exampleFormControlInput1">Ingredient</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Ingredient name"
-                       th:field="*{ingredientName}">
+                       th:field="*{name}">
             </div>
             <div class="col-md-4">
                 <label for="exampleFormControlInput2">Weight</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="Weight (gram)"
-                       th:field="*{weight}">
+                       th:field="*{quantity}">
+            </div>
+            <div class="col-md-4">
+                <label for="exampleFormControlInput3">Calories</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput3" placeholder="Calories"
+                       th:field="*{calories}">
+            </div>
+        </div>
+        <div class="row col-md-12 form-row-container">
+            <div class="col-md-4">
+                <label for="exampleFormControlInput4">Protein</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput4" placeholder="Protein"
+                       th:field="*{protein}">
+            </div>
+            <div class="col-md-4">
+                <label for="exampleFormControlInput5">Fat</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput5" placeholder="Fat"
+                       th:field="*{fat}">
+            </div>
+            <div class="col-md-4">
+                <label for="exampleFormControlInput6">Carbs</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput6" placeholder="Carbs"
+                       th:field="*{carbs}">
+            </div>
+        </div>
+        <div class="row col-md-12 form-row-container">
+            <div class="col-md-4">
+                <label for="exampleFormControlInput7">Fiber</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput7" placeholder="Fiber"
+                       th:field="*{fiber}">
+            </div>
+            <div class="col-md-4">
+                <label for="mealId">Meal</label>
+               <select th:name="mealId" id="mealId" class="form-control col-md-12">
+                   <option th:each="meal : ${meals}"
+                   th:text="${meal.getMealName() + ': ' + meal.getDate()}"
+                   th:value="${meal.getId()}"
+                   th:selected="${ingredient.getMeal() != null && ingredient.getMeal().getId() == meal.getId()}">
+                   </option>
+               </select>
             </div>
             <div class="col-md-4">
                 <label>Action</label>
