@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class MealService {
-    private MealRepo mealRepo;
+    private final MealRepo mealRepo;
 
     @Autowired
     public MealService(final MealRepo mealRepo) {
