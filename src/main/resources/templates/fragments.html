@@ -17,7 +17,7 @@
     <header>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light"
              style="">
-            <a class="navbar-brand mb-0 h1" th:href="@{/ingredients}" style=" ">Nutrition calculator</a>
+            <a class="navbar-brand mb-0 h1" th:href="@{/}" style=" ">Nutrition calculator</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -28,10 +28,16 @@
                         <a class="nav-link" th:href="@{/ingredients/search}">Find Ingredient</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/ingredients/list}">Added Ingredients</a>
+                        <a class="nav-link" th:href="@{/ingredients/add}">Create Ingredient</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/}"></a>
+                        <a class="nav-link" th:href="@{/ingredients/list}">Saved Ingredients</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/meals/add}">Create Meal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/meals/list}">Saved Meals</a>
                     </li>
                 </ul>
             </div>
