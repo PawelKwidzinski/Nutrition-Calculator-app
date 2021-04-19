@@ -26,9 +26,9 @@
 
         <div class="row col-md-12 list-result-row" th:each="ingredient : ${foundIngredients}">
             <div class="col-md-2">
-                <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{/icons/restaurant.png}">
+                <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{/images/food.png}"/>
                 <img class="img" th:unless="${ingredient.getImageUrl() == null}"
-                     th:src="@{${ingredient.getImageUrl()}}">
+                     th:src="@{${ingredient.getImageUrl()}}"/>
             </div>
             <div class="col-md-1" th:text="${ingredient.getQuantity()}"></div>
             <div class="col-md-1" th:text="${ingredient.getUnit()}"></div>
@@ -42,7 +42,7 @@
             </div>
             <div class="row col-md-2">
                 <div class="col-md-12">
-                    <a th:href="@{/ingredients/add/{id}(id=${ingredient.getFoodId()})}">
+                    <a th:href="@{/ingredients/add/{foodId}(foodId=${ingredient.getFoodId()})}">
                         <button type="button" class="btn btn-primary">Save</button>
                     </a>
                 </div>
