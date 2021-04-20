@@ -50,7 +50,7 @@ public class IngredientController {
             return "ingredient-search";
         }
         try {
-            int weight = Integer.parseInt(userInput.getWeight());
+            int weight = Integer.parseInt(userInput.getParameter());
             if (weight <= 0) {
                 model.addAttribute("error", "Weight must be greater than zero!");
                 return "ingredient-search";
@@ -76,21 +76,22 @@ public class IngredientController {
         Ingredient toSave = ingredientsFromApi.stream()
                 .filter(element -> Objects.equals(element.getFoodId(), foodId))
                 .findFirst().get();
-        ingredientService.saveFromApi(toSave);
+        mealService.saveFromApi(toSave);
         return "redirect:/ingredients/search";
     }
 
     @GetMapping("/add")
     public String addIngredient(Model model) {
-        model.addAttribute("meals", mealService.findAll());
+//        model.addAttribute("meals", mealService.findAll());
         model.addAttribute("ingredient", new Ingredient());
         return "ingredient-form";
     }
 
     @PostMapping("/add")
-    public String addIngredient(Ingredient ingredient, Long mealId) {
+    public String addIngredient(Ingredient ingredient) {
+        ingredient.setQuantity(100);
         ingredient.setUnit("g");
-        ingredientService.saveIngredient(ingredient, mealId);
+        ingredientService.saveIngredient(ingredient);
         return "redirect:/ingredients/list";
     }
 
@@ -102,14 +103,14 @@ public class IngredientController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editIngredient(Model model, @PathVariable(name = "id") Long id) {
-        Optional<Ingredient> optIngredient = ingredientService.findById(id);
+    public String editIngredient(Model model, @PathVariable(name = "id") Long ingredientId) {
+        Optional<Ingredient> optIngredient = ingredientService.findById(ingredientId);
         if (optIngredient.isPresent()) {
-            model.addAttribute("meals", mealService.findAll());
+//            model.addAttribute("meals", mealService.findAll());
             model.addAttribute("ingredient", optIngredient.get());
             return "ingredient-form";
         }
-        return "ingredient-saved-list";
+        return "redirect:/ingredients/list";
     }
 
     @GetMapping("/delete/{id}")
@@ -124,11 +125,11 @@ public class IngredientController {
 
     @GetMapping("/delete/{foodId}/{weight}")
     public String deleteIngredientFromTempList(@PathVariable String foodId, @PathVariable Integer weight) {
-        Ingredient toDelete = ingredientService.getTempList().stream()
+        Ingredient toDelete = mealService.getTempList().stream()
                 .filter(ingredient -> Objects.equals(ingredient.getFoodId(), foodId))
                 .filter(e -> Objects.equals(e.getQuantity(), weight))
                 .findFirst().get();
-        ingredientService.deleteFromTempList(toDelete);
+        mealService.deleteFromTempList(toDelete);
         return "redirect:/meals/add";
     }
 }
