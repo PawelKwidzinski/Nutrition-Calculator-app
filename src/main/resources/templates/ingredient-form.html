@@ -15,58 +15,56 @@
             <div class="col-md-4">
                 <label for="exampleFormControlInput1">Ingredient</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Ingredient name"
-                       th:field="*{name}">
+                       th:field="*{name}" th:value="*{name}">
             </div>
             <div class="col-md-4">
-                <label for="exampleFormControlInput2">Weight</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="Weight (gram)"
-                       th:field="*{quantity}">
+                <label for="exampleFormControlInput2">Calories</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="Calories"
+                       th:field="*{calories}" th:value="*{calories}">
             </div>
             <div class="col-md-4">
-                <label for="exampleFormControlInput3">Calories</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput3" placeholder="Calories"
-                       th:field="*{calories}">
+                <label for="exampleFormControlInput3">Protein</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput3" placeholder="Protein"
+                       th:field="*{protein}" th:value="*{protein}">
             </div>
         </div>
         <div class="row col-md-12 form-row-container">
             <div class="col-md-4">
-                <label for="exampleFormControlInput4">Protein</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput4" placeholder="Protein"
-                       th:field="*{protein}">
+                <label for="exampleFormControlInput4">Fat</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput4" placeholder="Fat"
+                       th:field="*{fat}" th:value="*{fat}">
             </div>
             <div class="col-md-4">
-                <label for="exampleFormControlInput5">Fat</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput5" placeholder="Fat"
-                       th:field="*{fat}">
+                <label for="exampleFormControlInput5">Carbs</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput5" placeholder="Carbs"
+                       th:field="*{carbs}" th:value="*{carbs}">
             </div>
-            <div class="col-md-4">
-                <label for="exampleFormControlInput6">Carbs</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput6" placeholder="Carbs"
-                       th:field="*{carbs}">
-            </div>
-        </div>
-        <div class="row col-md-12 form-row-container">
             <div class="col-md-4">
                 <label for="exampleFormControlInput7">Fiber</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput7" placeholder="Fiber"
-                       th:field="*{fiber}">
+                       th:field="*{fiber}" th:value="*{fiber}">
+            </div>
+        </div>
+        <div class="row col-md-12 form-row-container">
+
+            <div class="col-md-4">
+                <!--                <label for="mealId">Meal</label>-->
+                <!--               <select th:name="mealId" id="mealId" class="form-control col-md-12">-->
+                <!--                   <option th:each="meal : ${meals}"-->
+                <!--                   th:text="${meal.getMealName() + ': ' + meal.getDate()}"-->
+                <!--                   th:value="${meal.getId()}"-->
+                <!--                   th:selected="${ingredient.getMeal() != null && ingredient.getMeal().getId() == meal.getId()}">-->
+                <!--                   </option>-->
+                <!--               </select>-->
+            </div>
+
+            <div class="col-md-4">
+                <button type="reset" class="btn btn-warning  col-md-12 find-button">Reset</button>
             </div>
             <div class="col-md-4">
-                <label for="mealId">Meal</label>
-               <select th:name="mealId" id="mealId" class="form-control col-md-12">
-                   <option th:each="meal : ${meals}"
-                   th:text="${meal.getMealName() + ': ' + meal.getDate()}"
-                   th:value="${meal.getId()}"
-                   th:selected="${ingredient.getMeal() != null && ingredient.getMeal().getId() == meal.getId()}">
-                   </option>
-               </select>
+                <button type="submit" class="btn btn-primary col-md-12 find-button">Send</button>
             </div>
-            <div class="col-md-4">
-                <label>Action</label>
-                <div class="col-md-12 form-row-buttons">
-                    <button type="submit" class="btn btn-primary col-md-12 find-button">Send</button>
-                </div>
-            </div>
+
         </div>
         <div class="row col-md-12 error-row-container">
             <div class="col-md-4 alert text-danger" role="alert" th:if="${#fields.hasErrors('*')}"
