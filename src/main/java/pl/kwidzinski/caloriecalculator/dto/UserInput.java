@@ -6,8 +6,8 @@ public class UserInput {
 
     @NotBlank(message = "Ingredient name cannot be empty")
     private String ingredientName;
-    @NotBlank(message = "Ingredient weight cannot be empty")
-    private String weight;
+    @NotBlank(message = "Ingredient parameter cannot be empty")
+    private String parameter;
 
     public UserInput() {
     }
@@ -16,15 +16,15 @@ public class UserInput {
         return ingredientName;
     }
 
-    public String getWeight() {
-        return weight;
+    public String getParameter() {
+        return parameter;
     }
 
     public void setIngredientName(final String ingredientName) {
         this.ingredientName = ingredientName;
     }
 
-    public void setWeight(final String weight) {
-        this.weight = weight;
+    public void setParameter(final String parameter) {
+        this.parameter = parameter;
     }
 }
