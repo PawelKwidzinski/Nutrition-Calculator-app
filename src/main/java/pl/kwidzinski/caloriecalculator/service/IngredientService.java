@@ -8,7 +8,6 @@ import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
 import pl.kwidzinski.caloriecalculator.repository.MealRepo;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,32 +16,26 @@ public class IngredientService {
 
     private final IngredientRepo ingredientRepo;
     private final MealRepo mealRepo;
-    private final List<Ingredient> tempList;
 
     @Autowired
     public IngredientService(final IngredientRepo ingredientRepo, final MealRepo mealRepo) {
         this.ingredientRepo = ingredientRepo;
         this.mealRepo = mealRepo;
-        this.tempList = new ArrayList<>();
     }
 
     public List<Ingredient> findAll(){
         return ingredientRepo.findAll();
     }
 
-    public List<Ingredient> getTempList() {
-        return tempList;
-    }
-
-    public Optional<Ingredient> findById(Long id) {
+    public Optional<Ingredient> findById(final Long id) {
       return ingredientRepo.findById(id);
     }
 
-    public void saveFromApi(Ingredient ingredient) {
-        tempList.add(ingredient);
+    public void saveIngredient(final Ingredient toSave) {
+        ingredientRepo.save(toSave);
     }
 
-    public void saveIngredient(Ingredient ingredient, Long mealId){
+    public void saveIngredientToMeal(final Ingredient ingredient, final Long mealId){
         if (mealRepo.existsById(mealId)){
             Meal meal = mealRepo.getOne(mealId);
             ingredient.setMeal(meal);
@@ -51,10 +44,6 @@ public class IngredientService {
         } else {
             throw new EntityNotFoundException("Meal not found");
         }
-    }
-
-    public void deleteFromTempList(Ingredient ingredient) {
-        tempList.remove(ingredient);
     }
 
     public void deleteIngredient(final Long id) {
