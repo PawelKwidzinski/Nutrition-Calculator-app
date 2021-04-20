@@ -15,14 +15,25 @@
             <h1>Meal list</h1>
         </div>
         <div class="row col-md-12 list-header-row">
-            <div class="col-md-4">Name</div>
-            <div class="col-md-4">Date</div>
-<!--            <div class="col-md-4">Date</div>-->
+            <div class="col-md-2">Name</div>
+            <div class="col-md-2">Total Energy</div>
+            <div class="col-md-1">Protein</div>
+            <div class="col-md-1">Fat</div>
+            <div class="col-md-1">Carbs</div>
+            <div class="col-md-1">Fiber</div>
+            <div class="col-md-2">Date</div>
+            <div class="col-md-2">Action</div> <!--buttons-->
         </div>
 
         <div class="row col-md-12 list-result-row" th:each="meal : ${meals}">
-            <div class="col-md-4" th:text="${meal.getMealName()}"></div>
-            <div class="col-md-4" th:text="${meal.getDate()}"></div>
+            <div class="col-md-2" th:text="${meal.getMealName()}"></div>
+            <div class="col-md-2" th:text="${meal.getTotalKcal()}"></div>
+            <div class="col-md-1" th:text="${meal.getTotalProtein()}"></div>
+            <div class="col-md-1" th:text="${meal.getTotalFat()}"></div>
+            <div class="col-md-1" th:text="${meal.getTotalCarbs()}"></div>
+            <div class="col-md-1" th:text="${meal.getTotalFiber()}"></div>
+            <div class="col-md-2" th:text="${meal.getDate()}"></div>
+            <div class="col-md-2"></div>
 
             <div class="row col-md-4">
 <!--                <div class="col-md-12">-->
