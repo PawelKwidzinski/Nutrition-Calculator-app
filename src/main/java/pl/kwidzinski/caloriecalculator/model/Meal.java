@@ -44,15 +44,15 @@ public class Meal {
         return id;
     }
 
-     void setId(final Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
-     public String getMealName() {
+    public String getMealName() {
         return mealName;
     }
 
-     public void setMealName(final String mealName) {
+    public void setMealName(final String mealName) {
         this.mealName = mealName;
     }
 
@@ -60,55 +60,55 @@ public class Meal {
         return date;
     }
 
-     public void setDate(final LocalDate date) {
+    public void setDate(final LocalDate date) {
         this.date = date;
     }
 
-     public Integer getTotalKcal() {
+    public Integer getTotalKcal() {
         return totalKcal;
     }
 
-     public void setTotalKcal(final Integer totalKcal) {
+    public void setTotalKcal(final Integer totalKcal) {
         this.totalKcal = totalKcal;
     }
 
-     public BigDecimal getTotalProtein() {
+    public BigDecimal getTotalProtein() {
         return totalProtein;
     }
 
-     public void setTotalProtein(final BigDecimal totalProtein) {
+    public void setTotalProtein(final BigDecimal totalProtein) {
         this.totalProtein = totalProtein;
     }
 
-     public BigDecimal getTotalFat() {
+    public BigDecimal getTotalFat() {
         return totalFat;
     }
 
-     public void setTotalFat(final BigDecimal totalFat) {
+    public void setTotalFat(final BigDecimal totalFat) {
         this.totalFat = totalFat;
     }
 
-     public BigDecimal getTotalCarbs() {
+    public BigDecimal getTotalCarbs() {
         return totalCarbs;
     }
 
-     public void setTotalCarbs(final BigDecimal totalCarbs) {
+    public void setTotalCarbs(final BigDecimal totalCarbs) {
         this.totalCarbs = totalCarbs;
     }
 
-     public BigDecimal getTotalFiber() {
+    public BigDecimal getTotalFiber() {
         return totalFiber;
     }
 
-     public void setTotalFiber(final BigDecimal totalFiber) {
+    public void setTotalFiber(final BigDecimal totalFiber) {
         this.totalFiber = totalFiber;
     }
 
-     public Set<Ingredient> getIngredients() {
+    public Set<Ingredient> getIngredients() {
         return ingredients;
     }
 
-     public void setIngredients(final Set<Ingredient> ingredients) {
+    public void setIngredients(final Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 }
