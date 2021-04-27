@@ -31,8 +31,8 @@ public class IngredientService {
       return ingredientRepo.findById(id);
     }
 
-    public void saveIngredient(final Ingredient toSave) {
-        ingredientRepo.save(toSave);
+    public Optional<Ingredient>saveIngredient(final Ingredient toSave) {
+        return Optional.of(ingredientRepo.save(toSave));
     }
 
     public void saveIngredientToMeal(final Ingredient ingredient, final Long mealId){
