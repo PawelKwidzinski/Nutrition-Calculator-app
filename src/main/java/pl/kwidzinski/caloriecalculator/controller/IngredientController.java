@@ -76,14 +76,14 @@ public class IngredientController {
         Ingredient toSave = ingredientsFromApi.stream()
                 .filter(element -> Objects.equals(element.getFoodId(), foodId))
                 .findFirst().get();
-        mealService.saveFromApi(toSave);
+        mealService.saveToTempList(toSave);
         return "redirect:/ingredients/search";
     }
 
     @GetMapping("/add")
-    public String addIngredient(Model model) {
+    public String addIngredient(Model model, Ingredient ingredient) {
 //        model.addAttribute("meals", mealService.findAll());
-        model.addAttribute("ingredient", new Ingredient());
+        model.addAttribute("ingredient", ingredient);
         return "ingredient-form";
     }
 
