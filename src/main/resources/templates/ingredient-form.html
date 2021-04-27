@@ -11,6 +11,7 @@
 <div class="container">
     <form class="col-md-12 form-container" th:action="@{/ingredients/add}" th:object="${ingredient}" method="post">
         <h1>Add Ingredients and prepare your Meal</h1>
+        <input type="hidden" th:field="*{id}" th:value="*{id}">
         <div class="row col-md-12 form-row-container">
             <div class="col-md-4">
                 <label for="exampleFormControlInput1">Ingredient</label>
