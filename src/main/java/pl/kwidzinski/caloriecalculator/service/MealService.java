@@ -44,7 +44,7 @@ public class MealService {
         mealRepo.save(toSave);
     }
 
-    public void saveFromApi(Ingredient ingredient) {
+    public void saveToTempList(Ingredient ingredient) {
         tempList.add(ingredient);
     }
 
