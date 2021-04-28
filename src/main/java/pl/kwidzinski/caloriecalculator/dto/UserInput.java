@@ -4,24 +4,24 @@ import javax.validation.constraints.NotBlank;
 
 public class UserInput {
 
-    @NotBlank(message = "Ingredient name cannot be empty")
-    private String ingredientName;
-    @NotBlank(message = "Ingredient parameter cannot be empty")
+    @NotBlank(message = "Field cannot be empty")
+    private String name;
+    @NotBlank(message = "Field cannot be empty")
     private String parameter;
 
     public UserInput() {
     }
 
-    public String getIngredientName() {
-        return ingredientName;
+    public String getName() {
+        return name;
     }
 
     public String getParameter() {
         return parameter;
     }
 
-    public void setIngredientName(final String ingredientName) {
-        this.ingredientName = ingredientName;
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public void setParameter(final String parameter) {

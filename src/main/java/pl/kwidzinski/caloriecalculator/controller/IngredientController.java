@@ -56,7 +56,7 @@ public class IngredientController {
                 return "ingredient-search";
             }
 
-            ingredientsFromApi = dataFetcher.fetchDataFromApi(userInput.getIngredientName(), weight);
+            ingredientsFromApi = dataFetcher.fetchDataFromApi(userInput.getName(), weight);
 
             if (ingredientsFromApi.size() == 0) {
                 model.addAttribute("error", "Searching ingredient not found!");
@@ -88,10 +88,18 @@ public class IngredientController {
     }
 
     @PostMapping("/add")
-    public String addIngredient(Ingredient ingredient) {
-        ingredient.setQuantity(100);
-        ingredient.setUnit("g");
-        ingredientService.saveIngredient(ingredient);
+    public String addIngredient(@Validated Ingredient ingredient, BindingResult result, Model model) {
+        try {
+            if (result.hasErrors()) {
+                return "ingredient-form";
+            }
+            ingredient.setQuantity(100);
+            ingredient.setUnit("g");
+            ingredientService.saveIngredient(ingredient);
+        } catch (Exception e) {
+            model.addAttribute("error","Wrong format");
+            return "ingredient-errors";
+        }
         return "redirect:/ingredients/list";
     }
 
