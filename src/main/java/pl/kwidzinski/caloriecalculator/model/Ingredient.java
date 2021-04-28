@@ -3,6 +3,7 @@ package pl.kwidzinski.caloriecalculator.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -14,14 +15,29 @@ public class Ingredient {
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
     private String foodId;
+    @NotBlank(message = "Name cannot be empty")
     private String name;
     private String imageUrl;
     private String unit;
     private Integer quantity;
+    @NotNull(message = "Calories cannot be empty")
+    @Digits(integer = 3, fraction = 0,  message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
     private Integer calories;
+    @NotNull(message = "Calories cannot be empty")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 2, fraction = 2, message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
     private BigDecimal protein;
+    @NotNull(message = "Fat cannot be empty")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 2, fraction = 2,  message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
     private BigDecimal fat;
+    @NotNull(message = "Carbs cannot be empty")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 2, fraction = 2,  message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
     private BigDecimal carbs;
+    @NotNull(message = "Fiber cannot be empty")
+    @DecimalMin(value = "0.0", inclusive = false)
+    @Digits(integer = 2, fraction = 2,  message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
     private BigDecimal fiber;
 
     @ManyToOne
