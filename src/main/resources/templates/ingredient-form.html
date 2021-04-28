@@ -29,6 +29,18 @@
                        th:field="*{protein}" th:value="*{protein}">
             </div>
         </div>
+        <div class="row col-md-12 error-row-container">
+            <div class="col-md-4 text-danger" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+
+            </div>
+            <div class="col-md-4 text-danger" role="alert" th:if="${#fields.hasErrors('calories')}"
+                 th:errors="*{calories}">
+            </div>
+            <div class="col-md-4 text-danger" role="alert" th:if="${#fields.hasErrors('protein')}"
+                 th:errors="*{protein}">
+
+            </div>
+        </div>
         <div class="row col-md-12 form-row-container">
             <div class="col-md-4">
                 <label for="exampleFormControlInput4">Fat</label>
@@ -44,6 +56,23 @@
                 <label for="exampleFormControlInput7">Fiber</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput7" placeholder="Fiber"
                        th:field="*{fiber}" th:value="*{fiber}">
+            </div>
+        </div>
+        <div class="row col-md-12 error-row-container">
+            <div class="col-md-4 text-danger" role="alert" th:if="${#fields.hasErrors('fat')}"
+                 th:errors="*{fat}">
+                <div class="text-danger" th:if="${error} != null"
+                   th:text="${error}"></div>
+            </div>
+            <div class="col-md-4 text-danger" role="alert" th:if="${#fields.hasErrors('carbs')}"
+                 th:errors="*{carbs}">
+                <div class="text-danger" th:if="${error} != null"
+                   th:text="${error}"></div>
+            </div>
+            <div class="col-md-4 text-danger" role="alert" th:if="${#fields.hasErrors('fiber')}"
+                 th:errors="*{fiber}">
+                <div class="text-danger" th:if="${error} != null"
+                   th:text="${error}"></div>
             </div>
         </div>
         <div class="row col-md-12 form-row-container">
@@ -66,13 +95,6 @@
                 <button type="submit" class="btn btn-primary col-md-12 find-button">Send</button>
             </div>
 
-        </div>
-        <div class="row col-md-12 error-row-container">
-            <div class="col-md-4 alert text-danger" role="alert" th:if="${#fields.hasErrors('*')}"
-                 th:each="err : ${#fields.errors('*')}" th:text="${err}">
-            </div>
-            <div class="col-md-4 alert text-danger" role="alert" th:if="${error != null}" th:text="${error}">
-            </div>
         </div>
     </form>
 </div>
