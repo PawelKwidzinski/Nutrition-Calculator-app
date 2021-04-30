@@ -16,11 +16,17 @@
                 <label for="exampleFormControlInput1">Ingredient</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Ingredient name"
                        th:field="*{name}">
+                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                </div>
             </div>
             <div class="col-md-4">
                 <label for="exampleFormControlInput2">Weight</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="Weight (gram)"
                        th:field="*{parameter}">
+                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('parameter')}" th:errors="*{parameter}">
+                </div>
+                <div class="error-row-container text-danger" role="alert" th:if="${error != null}" th:text="${error}">
+                </div>
             </div>
             <div class="col-md-4">
                 <label>Action</label>
@@ -29,13 +35,13 @@
                 </div>
             </div>
         </div>
-        <div class="row col-md-12 error-row-container">
-            <div class="col-md-4 alert text-danger" role="alert" th:if="${#fields.hasErrors('*')}"
-                 th:each="err : ${#fields.errors('*')}" th:text="${err}">
-            </div>
-            <div class="col-md-4 alert text-danger" role="alert" th:if="${error != null}" th:text="${error}">
-            </div>
-        </div>
+<!--        <div class="row col-md-12 error-row-container">-->
+<!--            <div class="col-md-4 alert text-danger" role="alert" th:if="${#fields.hasErrors('*')}"-->
+<!--                 th:each="err : ${#fields.errors('*')}" th:text="${err}">-->
+<!--            </div>-->
+<!--            <div class="col-md-4 alert text-danger" role="alert" th:if="${error != null}" th:text="${error}">-->
+<!--            </div>-->
+<!--        </div>-->
     </form>
 </div>
 

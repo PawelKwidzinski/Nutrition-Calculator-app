@@ -19,9 +19,9 @@
             <div class="col-md-1">Qty</div>
             <div class="col-md-1">Unit</div>
             <div class="col-md-2">Food</div>
-            <div class="col-md-2">Energy</div>
-            <div class="col-sm-2">Nutrients</div>
-            <div class="col-sm-2">Actions</div>
+            <div class="col-md-1">Energy</div>
+            <div class="col-md-2">Nutrients</div>
+            <div class="col-md-3">Actions</div>
         </div>
 
         <div class="row col-md-12 list-result-row" th:each="ingredient : ${foundIngredients}">
@@ -33,17 +33,22 @@
             <div class="col-md-1" th:text="${ingredient.getQuantity()}"></div>
             <div class="col-md-1" th:text="${ingredient.getUnit()}"></div>
             <div class="col-md-2" th:text="${ingredient.getName()}"></div>
-            <div class="col-md-2" th:text="${ingredient.getCalories() + ' kcal'}"></div>
+            <div class="col-md-1" th:text="${ingredient.getCalories() + ' kcal'}"></div>
             <div class="col-md-2">
                 <p th:text="'Protein: ' + ${ingredient.getProtein() + ' g'}"></p>
                 <p th:text="'Fat: ' + ${ingredient.getFat() + ' g'}"></p>
                 <p th:text="'Carbs: ' + ${ingredient.getCarbs() + ' g'}"></p>
                 <p th:text="'Fiber: ' + ${ingredient.getFiber() + ' g'}"></p>
             </div>
-            <div class="row col-md-2">
-                <div class="col-md-12">
+            <div class="row col-md-3 action-buttons">
+                <div class="col-md-6">
                     <a th:href="@{'/ingredients/edit/' + ${ingredient.getId()}}">
-                        <button type="button" class="btn btn-primary">Edit</button>
+                        <button type="button" class="btn btn-primary find-button col-md-12 btn-sm">Edit</button>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a th:href="@{/ingredients/transfer/{id}(id=${ingredient.getId()})}">
+                        <button type="button" class="btn btn-success find-button col-md-12 btn-sm">Add To Meal</button>
                     </a>
                 </div>
             </div>
