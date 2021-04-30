@@ -81,25 +81,20 @@ public class IngredientController {
     }
 
     @GetMapping("/add")
-    public String addIngredient(Model model, Ingredient ingredient) {
+    public String addIngredient(Model model) {
 //        model.addAttribute("meals", mealService.findAll());
-        model.addAttribute("ingredient", ingredient);
+        model.addAttribute("ingredient", new Ingredient());
         return "ingredient-form";
     }
 
     @PostMapping("/add")
-    public String addIngredient(@Validated Ingredient ingredient, BindingResult result, Model model) {
-        try {
-            if (result.hasErrors()) {
-                return "ingredient-form";
-            }
-            ingredient.setQuantity(100);
-            ingredient.setUnit("g");
-            ingredientService.saveIngredient(ingredient);
-        } catch (Exception e) {
-            model.addAttribute("error","Wrong format");
-            return "ingredient-errors";
+    public String addIngredient(@Validated Ingredient ingredient, BindingResult result) {
+        if (result.hasErrors()) {
+            return "ingredient-form";
         }
+        ingredient.setQuantity(100);
+        ingredient.setUnit("g");
+        ingredientService.saveIngredient(ingredient);
         return "redirect:/ingredients/list";
     }
 
@@ -119,6 +114,18 @@ public class IngredientController {
             return "ingredient-form";
         }
         return "redirect:/ingredients/list";
+    }
+
+    @GetMapping("/transfer/{id}")
+    public String addToTempList(@PathVariable(name = "id") Long ingredientId) {
+        Optional<Ingredient> optIngredient = ingredientService.findById(ingredientId);
+        if (optIngredient.isPresent()) {
+            Ingredient ingredient = optIngredient.get();
+            ingredient.setFoodId(ingredient.getId() + ingredient.getName());
+            mealService.saveToTempList(ingredient);
+            return "redirect:/ingredients/list";
+        }
+        return "redirect:/meals/list";
     }
 
     @GetMapping("/delete/{id}")
