@@ -6,8 +6,8 @@ import pl.kwidzinski.caloriecalculator.exceptions.MealCannotDeleteException;
 import pl.kwidzinski.caloriecalculator.model.Ingredient;
 import pl.kwidzinski.caloriecalculator.model.Meal;
 import pl.kwidzinski.caloriecalculator.repository.MealRepo;
+import pl.kwidzinski.caloriecalculator.util.DataParser;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,11 +15,13 @@ import java.util.Optional;
 @Service
 public class MealService {
     private final MealRepo mealRepo;
+    private final DataParser dataParser;
     private final List<Ingredient> tempList;
 
     @Autowired
-    public MealService(final MealRepo mealRepo) {
+    public MealService(final MealRepo mealRepo, final DataParser dataParser) {
         this.mealRepo = mealRepo;
+        this.dataParser = dataParser;
         this.tempList = new ArrayList<>();
     }
 
@@ -70,36 +72,33 @@ public class MealService {
                 .sum();
     }
 
-    public BigDecimal countTotalProtein(List<Ingredient> ingredients) {
-        return BigDecimal.valueOf(ingredients.stream()
+    public Double countTotalProtein(List<Ingredient> ingredients) {
+        return dataParser.roundDouble(ingredients.stream()
                 .map(Ingredient::getProtein)
-                .mapToDouble(BigDecimal::doubleValue)
-                .sum())
-                .setScale(2, BigDecimal.ROUND_HALF_UP);
+                .mapToDouble(Double::doubleValue)
+                .sum(), 2);
     }
 
-    public BigDecimal countTotalFat(List<Ingredient> ingredients) {
-        return BigDecimal.valueOf(ingredients.stream()
+    public Double countTotalFat(List<Ingredient> ingredients) {
+        return dataParser.roundDouble(ingredients.stream()
                 .map(Ingredient::getFat)
-                .mapToDouble(BigDecimal::doubleValue)
-                .sum())
-                .setScale(2, BigDecimal.ROUND_HALF_UP);
+                .mapToDouble(Double::doubleValue)
+                .sum(), 2);
     }
 
-    public BigDecimal countTotalCarbs(List<Ingredient> ingredients) {
-        return BigDecimal.valueOf(ingredients.stream()
+    public Double countTotalCarbs(List<Ingredient> ingredients) {
+        return dataParser.roundDouble(ingredients.stream()
                 .map(Ingredient::getCarbs)
-                .mapToDouble(BigDecimal::doubleValue)
-                .sum())
-                .setScale(2, BigDecimal.ROUND_HALF_UP);
+                .mapToDouble(Double::doubleValue)
+                .sum(), 2);
+
     }
 
-    public BigDecimal countTotalFiber(List<Ingredient> ingredients) {
-        return BigDecimal.valueOf(ingredients.stream()
+    public Double countTotalFiber(List<Ingredient> ingredients) {
+        return ingredients.stream()
                 .map(Ingredient::getCarbs)
-                .mapToDouble(BigDecimal::doubleValue)
-                .sum())
-                .setScale(2, BigDecimal.ROUND_HALF_UP);
+                .mapToDouble(Double::doubleValue)
+                .sum();
     }
 }
 
