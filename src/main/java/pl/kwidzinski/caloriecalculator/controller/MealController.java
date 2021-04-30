@@ -2,6 +2,8 @@ package pl.kwidzinski.caloriecalculator.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +33,10 @@ public class MealController {
     }
 
     @PostMapping("/add")
-    public String addMeal(Meal meal) {
+    public String addMeal(@Validated Meal meal, BindingResult result) {
+        if (result.hasErrors()){
+            return "meal-form";
+        }
         mealService.saveMeal(meal);
         mealService.getTempList().clear();
         return "redirect:/meals/list";
