@@ -29,10 +29,10 @@ public class Meal {
     private LocalDate date;
 
     private Integer totalKcal;
-    private BigDecimal totalProtein;
-    private BigDecimal totalFat;
-    private BigDecimal totalCarbs;
-    private BigDecimal totalFiber;
+    private Double totalProtein;
+    private Double totalFat;
+    private Double totalCarbs;
+    private Double totalFiber;
 
     @OneToMany(mappedBy = "meal")
     private Set<Ingredient> ingredients;
@@ -72,35 +72,35 @@ public class Meal {
         this.totalKcal = totalKcal;
     }
 
-    public BigDecimal getTotalProtein() {
+    public Double getTotalProtein() {
         return totalProtein;
     }
 
-    public void setTotalProtein(final BigDecimal totalProtein) {
+    public void setTotalProtein(final Double totalProtein) {
         this.totalProtein = totalProtein;
     }
 
-    public BigDecimal getTotalFat() {
+    public Double getTotalFat() {
         return totalFat;
     }
 
-    public void setTotalFat(final BigDecimal totalFat) {
+    public void setTotalFat(final Double totalFat) {
         this.totalFat = totalFat;
     }
 
-    public BigDecimal getTotalCarbs() {
+    public Double getTotalCarbs() {
         return totalCarbs;
     }
 
-    public void setTotalCarbs(final BigDecimal totalCarbs) {
+    public void setTotalCarbs(final Double totalCarbs) {
         this.totalCarbs = totalCarbs;
     }
 
-    public BigDecimal getTotalFiber() {
+    public Double getTotalFiber() {
         return totalFiber;
     }
 
-    public void setTotalFiber(final BigDecimal totalFiber) {
+    public void setTotalFiber(final Double totalFiber) {
         this.totalFiber = totalFiber;
     }
 
