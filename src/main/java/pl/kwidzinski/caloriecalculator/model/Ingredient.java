@@ -4,7 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "ingredients")
@@ -15,30 +14,26 @@ public class Ingredient {
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
     private String foodId;
-    @NotBlank(message = "Name cannot be empty")
+    @NotBlank(message = "Invalid input")
     private String name;
     private String imageUrl;
     private String unit;
     private Integer quantity;
-    @NotNull(message = "Calories cannot be empty")
-    @Digits(integer = 3, fraction = 0,  message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
+    @NotNull(message = "Invalid input")
+    @Min(value = 1, message = "Calories should be more than 0")
     private Integer calories;
     @NotNull(message = "Calories cannot be empty")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 2, fraction = 2, message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
-    private BigDecimal protein;
+    private Double protein;
     @NotNull(message = "Fat cannot be empty")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 2, fraction = 2,  message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
-    private BigDecimal fat;
+    private Double fat;
     @NotNull(message = "Carbs cannot be empty")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 2, fraction = 2,  message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
-    private BigDecimal carbs;
+    private Double carbs;
     @NotNull(message = "Fiber cannot be empty")
     @DecimalMin(value = "0.0", inclusive = false)
-    @Digits(integer = 2, fraction = 2,  message = "numeric value out of bounds (<3 digits>.<2 digits> expected)")
-    private BigDecimal fiber;
+    private Double fiber;
 
     @ManyToOne
     private Meal meal;
@@ -50,12 +45,12 @@ public class Ingredient {
         return id;
     }
 
-    public String getFoodId() {
-        return foodId;
+    public void setId(final Long id) {
+        this.id = id;
     }
 
-     public void setId(final Long id) {
-        this.id = id;
+    public String getFoodId() {
+        return foodId;
     }
 
     public void setFoodId(final String foodId) {
@@ -102,35 +97,35 @@ public class Ingredient {
         this.calories = calories;
     }
 
-    public BigDecimal getProtein() {
+    public Double getProtein() {
         return protein;
     }
 
-    public void setProtein(final BigDecimal protein) {
+    public void setProtein(final Double protein) {
         this.protein = protein;
     }
 
-    public BigDecimal getFat() {
+    public Double getFat() {
         return fat;
     }
 
-    public void setFat(final BigDecimal fat) {
+    public void setFat(final Double fat) {
         this.fat = fat;
     }
 
-    public BigDecimal getCarbs() {
+    public Double getCarbs() {
         return carbs;
     }
 
-    public void setCarbs(final BigDecimal carbs) {
+    public void setCarbs(final Double carbs) {
         this.carbs = carbs;
     }
 
-    public BigDecimal getFiber() {
+    public Double getFiber() {
         return fiber;
     }
 
-    public void setFiber(final BigDecimal fiber) {
+    public void setFiber(final Double fiber) {
         this.fiber = fiber;
     }
 
