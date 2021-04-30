@@ -9,8 +9,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.kwidzinski.caloriecalculator.api.model.FoodApi;
 import pl.kwidzinski.caloriecalculator.model.Ingredient;
+import pl.kwidzinski.caloriecalculator.util.DataParser;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +34,12 @@ public class DataFetcher {
     private String ingr;
 
     private final Logger logger = LoggerFactory.getLogger(DataFetcher.class);
+
+    private final DataParser dataParser;
+
+     public DataFetcher(final DataParser dataParser) {
+        this.dataParser = dataParser;
+    }
 
     public List<Ingredient> fetchDataFromApi(String ingredient, Integer weight) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl)
@@ -72,25 +78,25 @@ public class DataFetcher {
                     if (element.getFood().getNutrients().getProcnt() != null) {
                         ingredient.setProtein(calculateNutrients(element.getFood().getNutrients().getProcnt(), weight));
                     } else {
-                        ingredient.setProtein(BigDecimal.ZERO);
+                        ingredient.setProtein(0d);
                     }
 
                     if (element.getFood().getNutrients().getFat() != null) {
                         ingredient.setFat(calculateNutrients(element.getFood().getNutrients().getFat(), weight));
                     } else {
-                        ingredient.setFat(BigDecimal.ZERO);
+                        ingredient.setFat(0d);
                     }
 
                     if (element.getFood().getNutrients().getChocdf() != null) {
                         ingredient.setCarbs(calculateNutrients(element.getFood().getNutrients().getChocdf(), weight));
                     } else {
-                        ingredient.setCarbs(BigDecimal.ZERO);
+                        ingredient.setCarbs(0d);
                     }
 
                     if (element.getFood().getNutrients().getFibtg() != null) {
                         ingredient.setFiber(calculateNutrients(element.getFood().getNutrients().getFibtg(), weight));
                     } else {
-                        ingredient.setFiber(BigDecimal.ZERO);
+                        ingredient.setFiber(0d);
                     }
 
                     return ingredient;
@@ -101,7 +107,9 @@ public class DataFetcher {
         return (int) ((weight / 100) * calories);
     }
 
-    private BigDecimal calculateNutrients(Double nutrients, int weight) {
-        return BigDecimal.valueOf((double) (weight / 100) * nutrients).setScale(2, BigDecimal.ROUND_HALF_UP);
+    private Double calculateNutrients(double nutrients, int weight) {
+        double result = (weight / 100) * nutrients;
+        return dataParser.roundDouble (result, 2) ;
     }
+
 }
