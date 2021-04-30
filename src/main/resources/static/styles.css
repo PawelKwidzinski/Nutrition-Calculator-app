@@ -91,6 +91,10 @@ body {
     padding: 5px 0;
 }
 
+.list-result-row p {
+    margin: 0 0 4px;
+}
+
 .form-container {
     background-color: lightgrey;
     text-align: center;
@@ -103,16 +107,35 @@ body {
 
 .form-row-container {
     border-radius: 5px;
-    font: bold 1.3rem Arial;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
     background-color: #e5dda8;
     border: solid 1px #5a5a5a;
-    margin: 35px 0;
+    margin: 10px 0;
+    height: 142px;
+    padding: 2px 0 2px 0;
+}
+
+.form-row-container label{
+    text-align: center;
+    padding: 5px 5px;
+    margin: 5px 5px;
+}
+
+.button-row-container {
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #e5dda8;
+    border: solid 1px #5a5a5a;
+    margin: 15px 0;
     padding: 2px 0 2px 0;
 }
 
 .error-row-container {
     text-align: center;
-    margin: -15px 0 0;
+    font-size: 14px;
+    margin: 12px 0 0;
     padding: 5px 0 2px 0;
 }
 
@@ -122,12 +145,6 @@ input {
 
 select {
     text-align: center;
-}
-
-.form-row-container label{
-    text-align: center;
-    padding: 10px 10px;
-    margin: 5px 5px;
 }
 
 .form-control {
@@ -141,7 +158,6 @@ select {
     font-weight: bold;
 }
 .action-buttons {
-    left: 40px;
     padding: 0;
 }
 
@@ -155,16 +171,15 @@ select {
 
 .find-button{
     position: center;
-
     margin: 5px 0;
     height: calc(1.5em + 1rem + 2px);
 }
 
 .img {
     /*right: 30px;*/
-   object-fit: contain;
-    height: 100%;
-    width: 100%;
+    object-fit: contain;
+    height: 80%;
+    width: 80%;
 }
 
 .stretched-link:after {
