@@ -23,16 +23,16 @@ public class Ingredient {
     @Min(value = 1, message = "Calories should be more than 0")
     private Integer calories;
     @NotNull(message = "Calories cannot be empty")
-    @DecimalMin(value = "0.0", inclusive = false)
+    @DecimalMin(value = "0.0")
     private Double protein;
     @NotNull(message = "Fat cannot be empty")
-    @DecimalMin(value = "0.0", inclusive = false)
+    @DecimalMin(value = "0.0")
     private Double fat;
     @NotNull(message = "Carbs cannot be empty")
-    @DecimalMin(value = "0.0", inclusive = false)
+    @DecimalMin(value = "0.0")
     private Double carbs;
     @NotNull(message = "Fiber cannot be empty")
-    @DecimalMin(value = "0.0", inclusive = false)
+    @DecimalMin(value = "0.0")
     private Double fiber;
 
     @ManyToOne
