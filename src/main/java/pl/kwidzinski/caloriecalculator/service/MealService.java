@@ -2,9 +2,11 @@ package pl.kwidzinski.caloriecalculator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.kwidzinski.caloriecalculator.exceptions.MealCannotDeleteException;
 import pl.kwidzinski.caloriecalculator.model.Ingredient;
 import pl.kwidzinski.caloriecalculator.model.Meal;
+import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
 import pl.kwidzinski.caloriecalculator.repository.MealRepo;
 import pl.kwidzinski.caloriecalculator.util.DataParser;
 
@@ -14,12 +16,15 @@ import java.util.Optional;
 
 @Service
 public class MealService {
+
+    private final IngredientRepo ingredientRepo;
     private final MealRepo mealRepo;
     private final DataParser dataParser;
     private final List<Ingredient> tempList;
 
     @Autowired
-    public MealService(final MealRepo mealRepo, final DataParser dataParser) {
+    public MealService(final IngredientRepo ingredientRepo, final MealRepo mealRepo, final DataParser dataParser) {
+        this.ingredientRepo = ingredientRepo;
         this.mealRepo = mealRepo;
         this.dataParser = dataParser;
         this.tempList = new ArrayList<>();
@@ -29,7 +34,7 @@ public class MealService {
         return tempList;
     }
 
-    public Optional<Meal> getById(Long id) {
+    public Optional<Meal> findById(Long id) {
         return mealRepo.findById(id);
     }
 
@@ -37,13 +42,18 @@ public class MealService {
         return mealRepo.findAll();
     }
 
+    @Transactional
     public void saveMeal(Meal toSave) {
         toSave.setTotalKcal(countTotalKcal(tempList));
         toSave.setTotalProtein(countTotalProtein(tempList));
         toSave.setTotalFat(countTotalFat(tempList));
         toSave.setTotalCarbs(countTotalCarbs(tempList));
         toSave.setTotalFiber(countTotalFiber(tempList));
-        mealRepo.save(toSave);
+
+        Meal savedMeal = mealRepo.save(toSave);
+        tempList.forEach(ingredient -> ingredient.setMeal(savedMeal));
+        ingredientRepo.saveAll(tempList);
+        tempList.clear();
     }
 
     public void saveToTempList(Ingredient ingredient) {
