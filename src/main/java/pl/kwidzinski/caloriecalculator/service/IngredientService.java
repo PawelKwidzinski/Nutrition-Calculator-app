@@ -8,8 +8,7 @@ import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
 import pl.kwidzinski.caloriecalculator.repository.MealRepo;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class IngredientService {
@@ -31,8 +30,8 @@ public class IngredientService {
       return ingredientRepo.findById(id);
     }
 
-    public Optional<Ingredient>saveIngredient(final Ingredient toSave) {
-        return Optional.of(ingredientRepo.save(toSave));
+    public void saveIngredient(final Ingredient toSave) {
+        ingredientRepo.save(toSave);
     }
 
     public void saveIngredientToMeal(final Ingredient ingredient, final Long mealId){
