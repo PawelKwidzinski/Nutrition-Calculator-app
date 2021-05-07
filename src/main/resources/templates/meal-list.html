@@ -10,19 +10,39 @@
 <header th:replace="fragments :: navigator"></header>
 
 <div class="container">
-    <div class="row col-md-12 list-container">
-        <div class="row col-md-12" th:if="${meals != null}">
-            <h1>Meal list</h1>
+    <form class="col-md-12 form-container" th:action="@{/meals/find/date}" th:object="${meals}" method="post">
+        <h1>Find Meals</h1>
+        <div class="row col-md-12 form-row-container">
+            <div class="col-md-4">
+                <label for="exampleFormControlInput1">Date from:</label>
+                <input type="date" class="form-control col-md-12" id="exampleFormControlInput1"
+                       placeholder="From: yyyy-mm-dd" th:name="from">
+            </div>
+            <div class="col-md-4">
+                <label for="exampleFormControlInput2">Date to:</label>
+                <input type="date" class="form-control col-md-12" id="exampleFormControlInput2"
+                       placeholder="To: yyyy-mm-dd" th:name="to">
+            </div>
+            <div class="col-md-4">
+                <label>Action</label>
+                <div class="col-md-12 form-row-buttons">
+                    <button type="submit" class="btn btn-primary col-md-12 find-button">Find</button>
+                </div>
+            </div>
+            <div class="error-row text-danger" role="alert" th:if="${notFoundInRange}"
+                 th:text="${notFoundInRange}"></div>
         </div>
-        <div class="row col-md-12 list-header-row">
-            <div class="col-md-2">Name</div>
-            <div class="col-md-1">Energy</div>
-            <div class="col-md-1">Protein</div>
-            <div class="col-md-1">Fat</div>
-            <div class="col-md-1">Carbs</div>
-            <div class="col-md-1">Fiber</div>
-            <div class="col-md-2">Date</div>
-            <div class="col-md-3">Action</div> <!--buttons-->
+        <div th:if="${meals != null and !meals.isEmpty()}">
+            <div class="row col-md-12 list-header-row">
+                <div class="col-md-2">Name</div>
+                <div class="col-md-1">Energy</div>
+                <div class="col-md-1">Protein</div>
+                <div class="col-md-1">Fat</div>
+                <div class="col-md-1">Carbs</div>
+                <div class="col-md-1">Fiber</div>
+                <div class="col-md-2">Date</div>
+                <div class="col-md-3">Action</div> <!--buttons-->
+            </div>
         </div>
 
         <div class="row col-md-12 list-result-row" th:each="meal : ${meals}">
@@ -41,14 +61,15 @@
                 </div>
                 <div class="col-md-6">
                     <a th:href="@{/meals/delete/{id}(id=${meal.getId()})}">
-                        <button type="button" class="btn btn-danger find-button col-md-12 btn-sm">Remove</button>
+                        <button type="button" class="btn btn-danger find-button col-md-12 btn-sm"
+                                th:disabled="${meal.getIngredients().size() != 0}">Remove
+                        </button>
                     </a>
                 </div>
             </div>
-
-
         </div>
-    </div>
+    </form>
+</div>
 
 </body>
 <div th:replace="fragments :: footer"></div>
