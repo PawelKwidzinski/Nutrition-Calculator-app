@@ -35,14 +35,16 @@
                 </div>
             </div>
         </div>
-        <div class="row col-md-12 list-header-row">
-            <div class="col-md-2">Image</div>
-            <div class="col-md-1">Qty</div>
-            <div class="col-md-1">Unit</div>
-            <div class="col-md-2">Food</div>
-            <div class="col-md-2">Energy</div>
-            <div class="col-sm-2">Nutrients</div>
-            <div class="col-sm-2">Actions</div>
+        <div th:if="${not #lists.isEmpty(ingredients)}">
+            <div class="row col-md-12 list-header-row">
+                <div class="col-md-2">Image</div>
+                <div class="col-md-1">Qty</div>
+                <div class="col-md-1">Unit</div>
+                <div class="col-md-2">Food</div>
+                <div class="col-md-2">Energy</div>
+                <div class="col-sm-2">Nutrients</div>
+                <div class="col-sm-2">Actions</div>
+            </div>
         </div>
 
         <div class="row col-md-12 list-result-row" th:each="ingredient : ${ingredients}">
