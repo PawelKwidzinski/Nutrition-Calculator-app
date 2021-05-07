@@ -138,6 +138,12 @@ body {
     margin: 12px 0 0;
     padding: 5px 0 2px 0;
 }
+.error-row {
+    text-align: center;
+    font-size: 14px;
+    margin: 10px auto;
+    padding: 5px 0 5px 0;
+}
 
 input {
     text-align: center;
@@ -175,11 +181,22 @@ select {
     height: calc(1.5em + 1rem + 2px);
 }
 
+.frame {
+    display: inline-block;
+    position: relative;
+}
+
 .img {
-    /*right: 30px;*/
-    object-fit: contain;
-    height: 80%;
-    width: 80%;
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
 .stretched-link:after {
