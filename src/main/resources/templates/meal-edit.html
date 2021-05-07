@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
+</head>
+<body>
+
+<header th:replace="fragments :: navigator"></header>
+<div class="container">
+    <form class="col-md-12 form-container" th:action="@{/meals/edit}" th:object="${meal}" method="post">
+        <h1>Prepare your Meal</h1>
+        <input type="hidden" th:field="*{id}" th:value="*{id}">
+        <div class="row col-md-12 form-row-container">
+            <div class="col-md-4">
+                <label for="exampleFormControlInput1">Meal</label>
+                <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Meal name"
+                       th:field="*{mealName}">
+                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('mealName')}"
+                     th:errors="*{mealName}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="exampleFormControlInput2">Date</label>
+                <input type="date" class="form-control col-md-12" id="exampleFormControlInput2"
+                       placeholder="Weight (gram)"
+                       th:field="*{date}">
+                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('date')}"
+                     th:errors="*{date}"></div>
+            </div>
+            <div class="col-md-4">
+                <label>Action</label>
+                <div class="col-md-12 form-row-buttons">
+                    <button type="submit" class="btn btn-primary col-md-12 find-button">Create</button>
+                </div>
+            </div>
+        </div>
+        <div class="row col-md-12 list-header-row">
+            <div class="col-md-2">Image</div>
+            <div class="col-md-1">Qty</div>
+            <div class="col-md-1">Unit</div>
+            <div class="col-md-2">Food</div>
+            <div class="col-md-2">Energy</div>
+            <div class="col-sm-2">Nutrients</div>
+            <div class="col-sm-2">Actions</div>
+        </div>
+
+        <div class="row col-md-12 list-result-row" th:each="ingredient : ${ingredients}">
+            <div class="col-md-2">
+                <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{'/images/food.png'}"/>
+                <img class="img" th:unless="${ingredient.getImageUrl() == null}"
+                     th:src="@{${ingredient.getImageUrl()}}"/>
+            </div>
+            <div class="col-md-1" th:text="${ingredient.getQuantity()}"></div>
+            <div class="col-md-1" th:text="${ingredient.getUnit()}"></div>
+            <div class="col-md-2" th:text="${ingredient.getName()}"></div>
+            <div class="col-md-2" th:text="${ingredient.getCalories() + ' kcal'}"></div>
+            <div class="col-md-2">
+                <p th:text="'Protein: ' + ${ingredient.getProtein() + ' g'}"></p>
+                <p th:text="'Fat: ' + ${ingredient.getFat() + ' g'}"></p>
+                <p th:text="'Carbs: ' + ${ingredient.getCarbs() + ' g'}"></p>
+                <p th:text="'Fiber: ' + ${ingredient.getFiber() + ' g'}"></p>
+            </div>
+            <div class="row col-md-2">
+                <div class="col-md-12">
+                    <a th:href="@{/ingredients/delete/{id}(id=${ingredient.getId()})}">
+                        <button type="button" class="btn btn-danger">Remove</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container">
+
+</div>
+</body>
+<div th:replace="fragments :: footer"></div>
+<div th:replace="fragments :: footerscripts"></div>
+</html>
