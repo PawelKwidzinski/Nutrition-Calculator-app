@@ -10,9 +10,8 @@ import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
 import pl.kwidzinski.caloriecalculator.repository.MealRepo;
 import pl.kwidzinski.caloriecalculator.util.DataParser;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 
 @Service
 public class MealService {
@@ -20,17 +19,17 @@ public class MealService {
     private final IngredientRepo ingredientRepo;
     private final MealRepo mealRepo;
     private final DataParser dataParser;
-    private final List<Ingredient> tempList;
+    private final Set<Ingredient> tempList;
 
     @Autowired
     public MealService(final IngredientRepo ingredientRepo, final MealRepo mealRepo, final DataParser dataParser) {
         this.ingredientRepo = ingredientRepo;
         this.mealRepo = mealRepo;
         this.dataParser = dataParser;
-        this.tempList = new ArrayList<>();
+        this.tempList = new HashSet<>();
     }
 
-    public List<Ingredient> getTempList() {
+    public Set<Ingredient> getTempList() {
         return tempList;
     }
 
@@ -60,6 +59,23 @@ public class MealService {
         tempList.add(ingredient);
     }
 
+    public void update(Meal meal) {
+        Optional<Meal> optionalMeal = mealRepo.findById(meal.getId());
+        if (optionalMeal.isPresent()) {
+            Meal mealToEdit = optionalMeal.get();
+            Set<Ingredient> foundIngredients = mealToEdit.getIngredients();
+
+            mealToEdit.setMealName(meal.getMealName());
+            mealToEdit.setDate(meal.getDate());
+            mealToEdit.setTotalKcal(countTotalKcal(foundIngredients));
+            mealToEdit.setTotalProtein(countTotalProtein(foundIngredients));
+            mealToEdit.setTotalFat(countTotalFat(foundIngredients));
+            mealToEdit.setTotalCarbs(countTotalCarbs(foundIngredients));
+            mealToEdit.setTotalFiber(countTotalFiber(foundIngredients));
+            mealRepo.save(mealToEdit);
+        }
+    }
+
     public void deleteFromTempList(Ingredient ingredient) {
         tempList.remove(ingredient);
     }
@@ -75,28 +91,33 @@ public class MealService {
         }
     }
 
-    public Integer countTotalKcal(List<Ingredient> ingredients) {
+    public List<Meal>findByDate(LocalDate from, LocalDate to) {
+        return mealRepo.findAllByDateBetweenOrderByDateAsc(from, to);
+    }
+
+
+    public Integer countTotalKcal(Set<Ingredient> ingredients) {
         return ingredients.stream()
                 .map(Ingredient::getCalories)
                 .mapToInt(Integer::intValue)
                 .sum();
     }
 
-    public Double countTotalProtein(List<Ingredient> ingredients) {
+    public Double countTotalProtein(Set<Ingredient> ingredients) {
         return dataParser.roundDouble(ingredients.stream()
                 .map(Ingredient::getProtein)
                 .mapToDouble(Double::doubleValue)
                 .sum(), 2);
     }
 
-    public Double countTotalFat(List<Ingredient> ingredients) {
+    public Double countTotalFat(Set<Ingredient> ingredients) {
         return dataParser.roundDouble(ingredients.stream()
                 .map(Ingredient::getFat)
                 .mapToDouble(Double::doubleValue)
                 .sum(), 2);
     }
 
-    public Double countTotalCarbs(List<Ingredient> ingredients) {
+    public Double countTotalCarbs(Set<Ingredient> ingredients) {
         return dataParser.roundDouble(ingredients.stream()
                 .map(Ingredient::getCarbs)
                 .mapToDouble(Double::doubleValue)
@@ -104,9 +125,9 @@ public class MealService {
 
     }
 
-    public Double countTotalFiber(List<Ingredient> ingredients) {
+    public Double countTotalFiber(Set<Ingredient> ingredients) {
         return ingredients.stream()
-                .map(Ingredient::getCarbs)
+                .map(Ingredient::getFiber)
                 .mapToDouble(Double::doubleValue)
                 .sum();
     }
