@@ -45,13 +45,13 @@
             </div>
         </div>
 
-        <div class="row col-md-12 list-result-row" th:each="meal : ${meals}">
+        <div class="row col-md-12 list-result-row align-items-center" th:each="meal : ${meals}">
             <div class="col-md-2" th:text="${meal.getMealName()}"></div>
-            <div class="col-md-1" th:text="${meal.getTotalKcal()}"></div>
-            <div class="col-md-1" th:text="${meal.getTotalProtein()}"></div>
-            <div class="col-md-1" th:text="${meal.getTotalFat()}"></div>
-            <div class="col-md-1" th:text="${meal.getTotalCarbs()}"></div>
-            <div class="col-md-1" th:text="${meal.getTotalFiber()}"></div>
+            <div class="col-md-1" th:text="${meal.getTotalKcal()} + ' kcal'"></div>
+            <div class="col-md-1" th:text="${meal.getTotalProtein()} + ' g'"></div>
+            <div class="col-md-1" th:text="${meal.getTotalFat()} + ' g'"></div>
+            <div class="col-md-1" th:text="${meal.getTotalCarbs()} + ' g'"></div>
+            <div class="col-md-1" th:text="${meal.getTotalFiber()} + ' g'"></div>
             <div class="col-md-2" th:text="${meal.getDate()}"></div>
             <div class="row col-md-3 action-buttons">
                 <div class="col-md-6">
