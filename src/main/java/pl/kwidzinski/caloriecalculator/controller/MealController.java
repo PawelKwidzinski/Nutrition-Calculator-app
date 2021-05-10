@@ -7,7 +7,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.kwidzinski.caloriecalculator.model.Meal;
 import pl.kwidzinski.caloriecalculator.service.MealService;
-import pl.kwidzinski.caloriecalculator.util.DataParser;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -56,7 +55,7 @@ public class MealController {
         return "redirect:/meal/list";
     }
     @PostMapping("/edit")
-    public String editMeal(@Validated Meal meal, BindingResult result, Model model) {
+    public String editMeal(@Validated Meal meal, BindingResult result) {
         if (result.hasErrors()) {
             return "meal-edit";
         }
