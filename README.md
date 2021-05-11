@@ -1,7 +1,7 @@
-# Calorie-Calculator
+# Nutrition-Calculator
 Nutrition calculator - in progres
 ## General
-Web application to searching food. Base on the provided name of ingredient and its weight to calculate nutrition in created meals consumed by the user. 
+Web application to search food. Base on the provided name of ingredient and its weight to calculate nutrition in created meals consumed by the user. 
 ## Technologies
 * Java 8
 * Maven
