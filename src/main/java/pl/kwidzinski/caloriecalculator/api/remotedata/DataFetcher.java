@@ -37,7 +37,7 @@ public class DataFetcher {
 
     private final DataParser dataParser;
 
-     public DataFetcher(final DataParser dataParser) {
+    public DataFetcher(final DataParser dataParser) {
         this.dataParser = dataParser;
     }
 
@@ -104,12 +104,12 @@ public class DataFetcher {
     }
 
     private int calculateCalories(Double calories, int weight) {
-        return (int) ((weight / 100) * calories);
+        return (int) (((double) weight / 100) * calories);
     }
 
-    private Double calculateNutrients(double nutrients, int weight) {
-        double result = (weight / 100) * nutrients;
-        return dataParser.roundDouble (result, 2) ;
+    private double calculateNutrients(Double nutrients, int weight) {
+        double result = ((double) weight / 100) * nutrients;
+        return dataParser.roundDouble(result, 2);
     }
 
 }
