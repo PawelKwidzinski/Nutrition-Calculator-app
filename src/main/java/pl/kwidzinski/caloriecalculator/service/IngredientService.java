@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.kwidzinski.caloriecalculator.model.Ingredient;
 import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
-import pl.kwidzinski.caloriecalculator.repository.MealRepo;
 
 import java.util.*;
 
