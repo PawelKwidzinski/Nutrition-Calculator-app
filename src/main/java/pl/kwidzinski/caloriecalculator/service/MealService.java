@@ -2,7 +2,6 @@ package pl.kwidzinski.caloriecalculator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.kwidzinski.caloriecalculator.exceptions.MealCannotDeleteException;
 import pl.kwidzinski.caloriecalculator.model.Ingredient;
 import pl.kwidzinski.caloriecalculator.model.Meal;
@@ -19,18 +18,12 @@ public class MealService {
     private final IngredientRepo ingredientRepo;
     private final MealRepo mealRepo;
     private final DataParser dataParser;
-    private final Set<Ingredient> tempList;
 
     @Autowired
     public MealService(final IngredientRepo ingredientRepo, final MealRepo mealRepo, final DataParser dataParser) {
         this.ingredientRepo = ingredientRepo;
         this.mealRepo = mealRepo;
         this.dataParser = dataParser;
-        this.tempList = new HashSet<>();
-    }
-
-    public Set<Ingredient> getTempList() {
-        return tempList;
     }
 
     public Optional<Meal> findById(Long id) {
@@ -41,22 +34,27 @@ public class MealService {
         return mealRepo.findAll();
     }
 
-    @Transactional
-    public void saveMeal(Meal toSave) {
-        toSave.setTotalKcal(countTotalKcal(tempList));
-        toSave.setTotalProtein(countTotalProtein(tempList));
-        toSave.setTotalFat(countTotalFat(tempList));
-        toSave.setTotalCarbs(countTotalCarbs(tempList));
-        toSave.setTotalFiber(countTotalFiber(tempList));
-
-        Meal savedMeal = mealRepo.save(toSave);
-        tempList.forEach(ingredient -> ingredient.setMeal(savedMeal));
-        ingredientRepo.saveAll(tempList);
-        tempList.clear();
+    public List<Meal> findAllByDate() {
+        return mealRepo.findAllOrderByDate();
     }
 
-    public void saveToTempList(Ingredient ingredient) {
-        tempList.add(ingredient);
+    public void addIngredientToMeal(final Long mealId, final Long ingredientId) {
+        if (!ingredientRepo.existsById(ingredientId)) {
+            return;
+        }
+        Ingredient ingredient = ingredientRepo.getOne(ingredientId);
+        if (!mealRepo.existsById(mealId)) {
+            return;
+        }
+        Meal meal = mealRepo.getOne(mealId);
+
+        meal.getIngredients().add(ingredient);
+        update(meal);
+        mealRepo.save(meal);
+    }
+
+    public void saveMeal(final Meal mealToSave) {
+        mealRepo.save(mealToSave);
     }
 
     public void update(Meal meal) {
@@ -76,10 +74,6 @@ public class MealService {
         }
     }
 
-    public void deleteFromTempList(Ingredient ingredient) {
-        tempList.remove(ingredient);
-    }
-
     public void removeMeal(Long id) {
         if (mealRepo.existsById(id)) {
             Meal mealToDelete = mealRepo.getOne(id);
@@ -91,10 +85,9 @@ public class MealService {
         }
     }
 
-    public List<Meal>findByDate(LocalDate from, LocalDate to) {
+    public List<Meal> findByDate(LocalDate from, LocalDate to) {
         return mealRepo.findAllByDateBetweenOrderByDateAsc(from, to);
     }
-
 
     public Integer countTotalKcal(Set<Ingredient> ingredients) {
         return ingredients.stream()
