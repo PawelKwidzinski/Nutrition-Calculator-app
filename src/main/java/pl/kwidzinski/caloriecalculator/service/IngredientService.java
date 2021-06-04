@@ -3,46 +3,31 @@ package pl.kwidzinski.caloriecalculator.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.kwidzinski.caloriecalculator.model.Ingredient;
-import pl.kwidzinski.caloriecalculator.model.Meal;
 import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
 import pl.kwidzinski.caloriecalculator.repository.MealRepo;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
 @Service
 public class IngredientService {
 
     private final IngredientRepo ingredientRepo;
-    private final MealRepo mealRepo;
 
     @Autowired
-    public IngredientService(final IngredientRepo ingredientRepo, final MealRepo mealRepo) {
+    public IngredientService(final IngredientRepo ingredientRepo) {
         this.ingredientRepo = ingredientRepo;
-        this.mealRepo = mealRepo;
     }
 
-    public List<Ingredient> findAll(){
+    public List<Ingredient> findAll() {
         return ingredientRepo.findAll();
     }
 
     public Optional<Ingredient> findById(final Long id) {
-      return ingredientRepo.findById(id);
+        return ingredientRepo.findById(id);
     }
 
     public void saveIngredient(final Ingredient toSave) {
         ingredientRepo.save(toSave);
-    }
-
-    public void saveIngredientToMeal(final Ingredient ingredient, final Long mealId){
-        if (mealRepo.existsById(mealId)){
-            Meal meal = mealRepo.getOne(mealId);
-            ingredient.setMeal(meal);
-
-            ingredientRepo.save(ingredient);
-        } else {
-            throw new EntityNotFoundException("Meal not found");
-        }
     }
 
     public void deleteIngredient(final Long id) {
