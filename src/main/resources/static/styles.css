@@ -142,6 +142,24 @@ body {
     border: solid 1px #5C6873;
 }
 
+.form-row-container p {
+    border-radius: 15px;
+    border: solid 1px #5C6873;
+    padding-top: 9px;
+}
+
+.form-row-container select {
+    border-radius: 15px;
+    border: solid 1px #5C6873;
+    font-weight: bold;
+    text-indent: 5px;
+
+}
+
+.form-row-container option {
+    text-indent: 5px;
+}
+
 .error-row-container {
     text-align: center;
     font-size: 14px;
@@ -174,8 +192,7 @@ select {
     font-weight: bold;
 }
 .action-buttons {
-    padding: 0;
-
+    padding: 2px;
 }
 
 .list-action-buttons {
