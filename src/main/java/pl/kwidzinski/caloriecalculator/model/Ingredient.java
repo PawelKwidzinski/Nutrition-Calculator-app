@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "ingredients")
@@ -35,8 +36,8 @@ public class Ingredient {
     @DecimalMin(value = "0.0")
     private Double fiber;
 
-    @ManyToOne
-    private Meal meal;
+    @ManyToMany(mappedBy = "ingredients", fetch = FetchType.EAGER)
+    private Set<Meal> meals;
 
     public Ingredient() {
     }
@@ -129,11 +130,11 @@ public class Ingredient {
         this.fiber = fiber;
     }
 
-    public Meal getMeal() {
-        return meal;
+    public Set<Meal> getMeals() {
+        return meals;
     }
 
-    public void setMeal(final Meal meal) {
-        this.meal = meal;
+    public void setMeals(final Set<Meal> meals) {
+        this.meals = meals;
     }
 }
