@@ -1,13 +1,17 @@
 package pl.kwidzinski.caloriecalculator.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pl.kwidzinski.caloriecalculator.model.Ingredient;
 import pl.kwidzinski.caloriecalculator.model.Meal;
+import pl.kwidzinski.caloriecalculator.service.IngredientService;
 import pl.kwidzinski.caloriecalculator.service.MealService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -16,9 +20,12 @@ import java.util.Optional;
 @RequestMapping(path = "/meals/")
 public class MealController {
     private final MealService mealService;
+    private final IngredientService ingredientService;
 
-    public MealController(final MealService mealService) {
+    @Autowired
+    public MealController(final MealService mealService, final IngredientService ingredientService) {
         this.mealService = mealService;
+        this.ingredientService = ingredientService;
     }
 
     @GetMapping("/list")
@@ -29,19 +36,37 @@ public class MealController {
 
     @GetMapping("/add")
     public String addMeal(Model model) {
-        model.addAttribute("ingredients", mealService.getTempList());
+        model.addAttribute("meals", mealService.findAllByDate());
         model.addAttribute("meal", new Meal());
         return "meal-form";
     }
 
     @PostMapping("/add")
-    public String addMeal(@Validated Meal meal, BindingResult result, Model model) {
+    public String addMeal(@Validated Meal meal, BindingResult result) {
         if (result.hasErrors()) {
-//            model.addAttribute("ingredients", mealService.getTempList());
             return "meal-form";
         }
         mealService.saveMeal(meal);
         return "redirect:/meals/list";
+    }
+
+    @GetMapping("/ingredients/{id}")
+    public String addMealToIngredients(Model model, @PathVariable("id") Long mealId) {
+        Optional<Meal> mealOptional = mealService.findById(mealId);
+        if (mealOptional.isPresent()) {
+            Meal meal = mealOptional.get();
+            List<Ingredient> ingredients = ingredientService.findAll();
+            model.addAttribute("meal", meal);
+            model.addAttribute("ingredients", ingredients);
+            return "meal-ingredient-form";
+        }
+        return "redirect:/meals/list";
+    }
+
+    @PostMapping("/addIngredient")
+    public String addIngredientsToMeal(Long mealId, Long ingredientId, HttpServletRequest request) {
+        mealService.addIngredientToMeal(mealId, ingredientId);
+        return "redirect:" + request.getHeader("referer");
     }
 
     @GetMapping("/edit/{id}")
@@ -54,6 +79,7 @@ public class MealController {
         }
         return "redirect:/meal/list";
     }
+
     @PostMapping("/edit")
     public String editMeal(@Validated Meal meal, BindingResult result) {
         if (result.hasErrors()) {
