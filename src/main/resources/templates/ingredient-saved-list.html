@@ -46,18 +46,12 @@
             </div>
             <div class="row col-md-4 list-action-buttons">
                 <div class="row col-sm-12 list-action-buttons">
-                    <div class="col-sm-4 list-action-buttons">
+                    <div class="col-sm-6 list-action-buttons">
                         <a th:href="@{'/ingredients/edit/' + ${ingredient.getId()}}">
                             <button type="button" class="btn btn-primary find-button col-md-12 btn-sm">Edit</button>
                         </a>
                     </div>
-                    <div class="col-sm-4 list-action-buttons">
-                        <a th:href="@{/ingredients/transfer/{id}(id=${ingredient.getId()})}">
-                            <button type="button" class="btn btn-success find-button col-md-12 btn-sm">Add To Meal
-                            </button>
-                        </a>
-                    </div>
-                    <div class="col-sm-4 list-action-buttons">
+                    <div class="col-sm-6 list-action-buttons">
                         <a th:href="@{/ingredients/delete/{id}(id=${ingredient.getId()})}">
                             <button type="button" class="btn btn-danger find-button col-md-12 btn-sm">Remove</button>
                         </a>

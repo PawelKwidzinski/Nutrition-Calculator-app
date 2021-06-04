@@ -47,19 +47,19 @@
 
         <div class="row col-md-12 list-result-row align-items-center" th:each="meal : ${meals}">
             <div class="col-md-2" th:text="${meal.getMealName()}"></div>
-            <div class="col-md-1" th:text="${meal.getTotalKcal()} + ' kcal'"></div>
-            <div class="col-md-1" th:text="${meal.getTotalProtein()} + ' g'"></div>
-            <div class="col-md-1" th:text="${meal.getTotalFat()} + ' g'"></div>
-            <div class="col-md-1" th:text="${meal.getTotalCarbs()} + ' g'"></div>
-            <div class="col-md-1" th:text="${meal.getTotalFiber()} + ' g'"></div>
+            <div class="col-md-1" th:text="${meal.getTotalKcal() == null} ? '0 kcal' : ${meal.getTotalKcal() + ' kcal'}"></div>
+            <div class="col-md-1" th:text="${meal.getTotalProtein() == null} ? '0 g' : ${meal.getTotalProtein() + ' g'}"></div>
+            <div class="col-md-1" th:text="${meal.getTotalFat() == null} ? '0 g' : ${meal.getTotalFat() + ' g'}"></div>
+            <div class="col-md-1" th:text="${meal.getTotalCarbs() == null} ? '0 g' : ${meal.getTotalCarbs() + ' g'}"></div>
+            <div class="col-md-1" th:text="${meal.getTotalFiber() == null} ? '0 g' : ${meal.getTotalFiber() + ' g'}"></div>
             <div class="col-md-2" th:text="${meal.getDate()}"></div>
             <div class="row col-md-3 action-buttons">
-                <div class="col-md-6">
-                    <a th:href="@{'/meals/edit/'+ ${meal.getId()}}">
-                        <button type="button" class="btn btn-primary find-button col-md-12 btn-sm">Edit</button>
+                <div class="col-md-6 action-buttons">
+                    <a th:href="@{'/meals/ingredients/'+ ${meal.getId()}}">
+                        <button type="button" class="btn btn-success find-button col-md-12 btn-sm">Add Ingredient</button>
                     </a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 action-buttons">
                     <a th:href="@{/meals/delete/{id}(id=${meal.getId()})}">
                         <button type="button" class="btn btn-danger find-button col-md-12 btn-sm"
                                 th:disabled="${meal.getIngredients().size() != 0}">Remove
