@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -34,7 +33,7 @@ public class Meal {
     private Double totalCarbs;
     private Double totalFiber;
 
-    @OneToMany(mappedBy = "meal")
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Ingredient> ingredients;
 
     public Meal() {
