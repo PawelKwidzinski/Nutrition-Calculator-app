@@ -27,14 +27,12 @@ public class IngredientController {
 
     private final DataFetcher dataFetcher;
     private final IngredientService ingredientService;
-    private final MealService mealService;
     private List<Ingredient> ingredientsFromApi;
 
     @Autowired
-    public IngredientController(final DataFetcher dataFetcher, final IngredientService ingredientService, final MealService mealService) {
+    public IngredientController(final DataFetcher dataFetcher, final IngredientService ingredientService) {
         this.dataFetcher = dataFetcher;
         this.ingredientService = ingredientService;
-        this.mealService = mealService;
         this.ingredientsFromApi = new ArrayList<>();
     }
 
@@ -76,13 +74,12 @@ public class IngredientController {
         Ingredient toSave = ingredientsFromApi.stream()
                 .filter(element -> Objects.equals(element.getFoodId(), foodId))
                 .findFirst().get();
-        mealService.saveToTempList(toSave);
+        ingredientService.saveIngredient(toSave);
         return "redirect:/ingredients/search";
     }
 
     @GetMapping("/add")
     public String addIngredient(Model model) {
-//        model.addAttribute("meals", mealService.findAll());
         model.addAttribute("ingredient", new Ingredient());
         return "ingredient-form";
     }
@@ -109,23 +106,10 @@ public class IngredientController {
     public String editIngredient(Model model, @PathVariable(name = "id") Long ingredientId) {
         Optional<Ingredient> optIngredient = ingredientService.findById(ingredientId);
         if (optIngredient.isPresent()) {
-//            model.addAttribute("meals", mealService.findAll());
             model.addAttribute("ingredient", optIngredient.get());
             return "ingredient-form";
         }
         return "redirect:/ingredients/list";
-    }
-
-    @GetMapping("/transfer/{id}")
-    public String addToTempList(@PathVariable(name = "id") Long ingredientId) {
-        Optional<Ingredient> optIngredient = ingredientService.findById(ingredientId);
-        if (optIngredient.isPresent()) {
-            Ingredient ingredient = optIngredient.get();
-            ingredient.setFoodId(ingredient.getId() + ingredient.getName());
-            mealService.saveToTempList(ingredient);
-            return "redirect:/ingredients/list";
-        }
-        return "redirect:/meals/list";
     }
 
     @GetMapping("/delete/{id}")
@@ -136,15 +120,5 @@ public class IngredientController {
             return "redirect:" + referer;
         }
         return "redirect:/ingredients/list";
-    }
-
-    @GetMapping("/delete/{foodId}/{weight}")
-    public String deleteIngredientFromTempList(@PathVariable String foodId, @PathVariable Integer weight) {
-        Ingredient toDelete = mealService.getTempList().stream()
-                .filter(ingredient -> Objects.equals(ingredient.getFoodId(), foodId))
-                .filter(e -> Objects.equals(e.getQuantity(), weight))
-                .findFirst().get();
-        mealService.deleteFromTempList(toDelete);
-        return "redirect:/meals/add";
     }
 }
