@@ -53,7 +53,8 @@
                     </div>
                     <div class="col-sm-6 list-action-buttons">
                         <a th:href="@{/ingredients/delete/{id}(id=${ingredient.getId()})}">
-                            <button type="button" class="btn btn-danger find-button col-md-12 btn-sm">Remove</button>
+                            <button type="button" class="btn btn-danger find-button col-md-12 btn-sm"
+                                    th:disabled="${ingredient.getMeals().size() != 0}">Remove</button>
                         </a>
                     </div>
                 </div>
