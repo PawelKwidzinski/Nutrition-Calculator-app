@@ -1,7 +1,11 @@
 # Nutrition-Calculator - in progress
 https://nut-cal.herokuapp.com/
 ## General
-Web application to search food. Base on the provided name of ingredient and its weight to calculate nutrition in created meals consumed by the user. Data is from [remote API](https://developer.edamam.com/edamam-docs-nutrition-api) and storaged in remote MySQL Database.
+Web application to search food. Base on the provided name of ingredient and its weight to calculate nutrition in created meals consumed by the user. Data is from [remote API](https://developer.edamam.com/edamam-docs-nutrition-api) and storaged in remote MySQL Database. The user can also create own ingredients and add them to created meals.
+Features:
+* Search ingrediend from API
+* CRUD
+* Filter from/to date
 ## Technologies
 * Java 8
 * Maven
@@ -19,8 +23,6 @@ https://nut-cal.herokuapp.com/ingredients/search
 https://nut-cal.herokuapp.com/ingredients/add
 https://nut-cal.herokuapp.com/ingredients/list
 https://nut-cal.herokuapp.com/ingredients/edit/{id}
-https://nut-cal.herokuapp.com/ingredients/transfer/{id}
-https://nut-cal.herokuapp.com/ingredients/delete/{id}
 https://nut-cal.herokuapp.com/ingredients/delete/{foodId}/{weight}
 https://nut-cal.herokuapp.com/meals/add
 https://nut-cal.herokuapp.com/meals/list
