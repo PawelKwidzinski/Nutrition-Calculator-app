@@ -30,13 +30,13 @@ public class MealController {
 
     @GetMapping("/list")
     public String getMeals(Model model) {
-        model.addAttribute("meals", mealService.findAll());
+        model.addAttribute("meals", mealService.findAllOrderByDateDesc());
         return "meal-list";
     }
 
     @GetMapping("/add")
     public String addMeal(Model model) {
-        model.addAttribute("meals", mealService.findAllByDate());
+        model.addAttribute("meals", mealService.findAllOrderByDateDesc());
         model.addAttribute("meal", new Meal());
         return "meal-form";
     }
@@ -66,6 +66,15 @@ public class MealController {
     @PostMapping("/addIngredient")
     public String addIngredientsToMeal(Long mealId, Long ingredientId, HttpServletRequest request) {
         mealService.addIngredientToMeal(mealId, ingredientId);
+        return "redirect:" + request.getHeader("referer");
+    }
+
+    @GetMapping("/ingredient/remove/{ingredientId}/{mealId}")
+    public String removeIngredientFromMeal(
+            @PathVariable("ingredientId") Long ingredientId,
+            @PathVariable("mealId") Long mealId,
+            HttpServletRequest request) {
+        mealService.removeIngredientFromMeal(ingredientId, mealId);
         return "redirect:" + request.getHeader("referer");
     }
 
@@ -101,7 +110,7 @@ public class MealController {
     @PostMapping("/find/date")
     public String findByDate(@RequestParam(value = "from") String from, @RequestParam(value = "to") String to, Model model) {
         List<Meal> byDate = mealService.findByDate(LocalDate.parse(from), LocalDate.parse(to));
-        if (byDate.size() == 0 || LocalDate.parse(from).isAfter(LocalDate.parse(to))) {
+        if (byDate.size() == 0 || LocalDate.parse(from).isAfter(LocalDate.parse(to)) || from == null || to == null) {
             model.addAttribute("notFoundInRange", "Could not find any meals within provided range.");
         }
         model.addAttribute("meals", byDate);

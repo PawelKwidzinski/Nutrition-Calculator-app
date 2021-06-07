@@ -34,7 +34,7 @@ public class MealService {
         return mealRepo.findAll();
     }
 
-    public List<Meal> findAllByDate() {
+    public List<Meal> findAllOrderByDateDesc() {
         return mealRepo.findAllOrderByDate();
     }
 
@@ -83,6 +83,21 @@ public class MealService {
                 throw new MealCannotDeleteException(id);
             }
         }
+    }
+
+    public void removeIngredientFromMeal(final Long ingredientId, final Long mealId) {
+        if (!ingredientRepo.existsById(ingredientId)) {
+            return;
+        }
+        Ingredient ingredient = ingredientRepo.getOne(ingredientId);
+        if (!mealRepo.existsById(mealId)) {
+            return;
+        }
+        Meal meal = mealRepo.getOne(mealId);
+
+        meal.getIngredients().remove(ingredient);
+        update(meal);
+        mealRepo.save(meal);
     }
 
     public List<Meal> findByDate(LocalDate from, LocalDate to) {
