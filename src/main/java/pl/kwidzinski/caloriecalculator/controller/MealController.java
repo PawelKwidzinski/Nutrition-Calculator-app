@@ -12,6 +12,7 @@ import pl.kwidzinski.caloriecalculator.service.IngredientService;
 import pl.kwidzinski.caloriecalculator.service.MealService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,6 @@ public class MealController {
 
     @GetMapping("/add")
     public String addMeal(Model model) {
-        model.addAttribute("meals", mealService.findAllOrderByDateDesc());
         model.addAttribute("meal", new Meal());
         return "meal-form";
     }
@@ -47,7 +47,7 @@ public class MealController {
             return "meal-form";
         }
         mealService.saveMeal(meal);
-        return "redirect:/meals/list";
+        return "redirect:/meals/ingredients/" + meal.getId();
     }
 
     @GetMapping("/ingredients/{id}")
@@ -109,11 +109,15 @@ public class MealController {
 
     @PostMapping("/find/date")
     public String findByDate(@RequestParam(value = "from") String from, @RequestParam(value = "to") String to, Model model) {
-        List<Meal> byDate = mealService.findByDate(LocalDate.parse(from), LocalDate.parse(to));
-        if (byDate.size() == 0 || LocalDate.parse(from).isAfter(LocalDate.parse(to)) || from == null || to == null) {
-            model.addAttribute("notFoundInRange", "Could not find any meals within provided range.");
+        try {
+            List<Meal> byDate = mealService.findByDate(LocalDate.parse(from), LocalDate.parse(to));
+            if (byDate.size() == 0 || LocalDate.parse(from).isAfter(LocalDate.parse(to))) {
+                model.addAttribute("notFoundInRange", "Could not find any meals within provided range.");
+            }
+            model.addAttribute("meals", byDate);
+        } catch (DateTimeException e) {
+            model.addAttribute("notEmpty", "Date cannot be empty!");
         }
-        model.addAttribute("meals", byDate);
         return "meal-list";
     }
 }
