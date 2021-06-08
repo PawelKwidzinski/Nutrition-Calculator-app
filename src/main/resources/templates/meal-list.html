@@ -17,11 +17,17 @@
                 <label for="exampleFormControlInput1">Date from:</label>
                 <input type="date" class="form-control col-md-12" id="exampleFormControlInput1"
                        placeholder="From: yyyy-mm-dd" th:name="from">
+                <div class="error-row text-danger" role="alert" th:if="${notFoundInRange}"
+                     th:text="${notFoundInRange}"></div>
             </div>
             <div class="col-md-4">
                 <label for="exampleFormControlInput2">Date to:</label>
                 <input type="date" class="form-control col-md-12" id="exampleFormControlInput2"
                        placeholder="To: yyyy-mm-dd" th:name="to">
+                <div class="error-row text-danger" role="alert" th:if="${notFoundInRange}"
+                     th:text="${notFoundInRange}"></div>
+                <div class="error-row text-danger" role="alert" th:if="${notEmpty}"
+                     th:text="${notEmpty}"></div>
             </div>
             <div class="col-md-4">
                 <label>Action</label>
@@ -56,7 +62,7 @@
             <div class="row col-md-3 action-buttons">
                 <div class="col-md-6 action-buttons">
                     <a th:href="@{'/meals/ingredients/'+ ${meal.getId()}}">
-                        <button type="button" class="btn btn-primary find-button col-md-12 btn-sm">Add Ingredient</button>
+                        <button type="button" class="btn btn-primary find-button col-md-12 btn-sm">Ingredients</button>
                     </a>
                 </div>
                 <div class="col-md-6 action-buttons">

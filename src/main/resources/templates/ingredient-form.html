@@ -32,9 +32,12 @@
                 <label for="exampleFormControlInput3">Protein</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput3" placeholder="0.00"
                        th:field="*{protein}" th:value="*{protein}">
-                <div class="error-row-container text-danger" role="alert">
-                    <p th:if="${#fields.hasErrors('protein')}">Invalid Input</p>
+                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('protein')}"
+                     th:errors="*{protein}">
                 </div>
+<!--                <div class="error-row-container text-danger" role="alert">-->
+<!--                    <p th:if="${#fields.hasErrors('protein')}">Invalid Input</p>-->
+<!--                </div>-->
             </div>
         </div>
 
@@ -43,25 +46,34 @@
                 <label for="exampleFormControlInput4">Fat</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput4" placeholder="0.00"
                        th:field="*{fat}" th:value="*{fat}">
-                <div class="error-row-container text-danger" role="alert">
-                    <p th:if="${#fields.hasErrors('protein')}">Invalid Input</p>
+                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('fat')}"
+                     th:errors="*{fat}">
                 </div>
+<!--                <div class="error-row-container text-danger" role="alert">-->
+<!--                    <p th:if="${#fields.hasErrors('protein')}">Invalid Input</p>-->
+<!--                </div>-->
             </div>
             <div class="col-md-4">
                 <label for="exampleFormControlInput5">Carbs</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput5" placeholder="0.00"
                        th:field="*{carbs}" th:value="*{carbs}">
-                <div class="error-row-container text-danger" role="alert">
-                    <p th:if="${#fields.hasErrors('carbs')}">Invalid Input</p>
+                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('carbs')}"
+                     th:errors="*{carbs}">
                 </div>
+<!--                <div class="error-row-container text-danger" role="alert">-->
+<!--                    <p th:if="${#fields.hasErrors('carbs')}">Invalid Input</p>-->
+<!--                </div>-->
             </div>
             <div class="col-md-4">
                 <label for="exampleFormControlInput7">Fiber</label>
                 <input class="form-control col-md-12" id="exampleFormControlInput7" placeholder="0.00"
                        th:field="*{fiber}" th:value="*{fiber}">
-                <div class="error-row-container text-danger" role="alert">
-                    <p th:if="${#fields.hasErrors('fiber')}">Invalid Input</p>
+                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('fiber')}"
+                     th:errors="*{fiber}">
                 </div>
+<!--                <div class="error-row-container text-danger" role="alert">-->
+<!--                    <p th:if="${#fields.hasErrors('fiber')}">Invalid Input</p>-->
+<!--                </div>-->
             </div>
         </div>
         <div class="row col-md-12 button-row-container">

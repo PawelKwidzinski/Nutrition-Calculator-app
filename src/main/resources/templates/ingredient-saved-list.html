@@ -21,7 +21,7 @@
             <div class="col-md-4">Actions</div>
         </div>
 
-        <div class="row col-md-12 list-result-row" th:each="ingredient : ${foundIngredients}">
+        <div class="row col-md-12 list-result-row align-items-center" th:each="ingredient : ${foundIngredients}">
             <div class="col-md-1">
                 <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{/images/food.png}">
                 <img class="img" th:unless="${ingredient.getImageUrl() == null}"
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row col-md-4 list-action-buttons">
+            <div class="row col-md-4 list-action-buttons align-items-center">
                 <div class="row col-sm-12 list-action-buttons">
                     <div class="col-sm-6 list-action-buttons">
                         <a th:href="@{'/ingredients/edit/' + ${ingredient.getId()}}">

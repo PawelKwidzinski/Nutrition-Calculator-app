@@ -62,7 +62,7 @@ body {
 .list-container h1 {
     text-align: center;
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-top: 7px;
 }
@@ -89,7 +89,7 @@ body {
     background-color: #F2E3D5;
     border: solid 1px #F2E3D5;
     margin: 5px auto;
-    padding: 5px 0;
+    padding: 0;
 }
 
 .list-result-row p {
@@ -114,7 +114,7 @@ body {
 
 .form-container h1 {
     font-family: 'Roboto Condensed', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-top: 7px;
 }
@@ -240,12 +240,12 @@ select {
     max-width: 100%;
     width: auto;
     height: auto;
-    position: absolute;
+    /*position: absolute;*/
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    margin: auto;
+    margin: 2px;
 }
 
 .stretched-link:after {

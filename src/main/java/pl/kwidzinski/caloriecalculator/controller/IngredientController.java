@@ -13,7 +13,6 @@ import pl.kwidzinski.caloriecalculator.model.Ingredient;
 import pl.kwidzinski.caloriecalculator.api.remotedata.DataFetcher;
 import pl.kwidzinski.caloriecalculator.dto.UserInput;
 import pl.kwidzinski.caloriecalculator.service.IngredientService;
-import pl.kwidzinski.caloriecalculator.service.MealService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -62,7 +61,7 @@ public class IngredientController {
             }
 
             model.addAttribute("foundIngredients", ingredientsFromApi);
-            return "ingredient-list";
+            return "ingredient-search";
         } catch (NumberFormatException e) {
             model.addAttribute("error", "Weight must be a number!");
             return "ingredient-search";
