@@ -15,15 +15,15 @@ public class Ingredient {
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
     private String foodId;
-    @NotBlank(message = "Invalid input")
+    @NotBlank(message = "Name cannot be empty")
     private String name;
     private String imageUrl;
     private String unit;
     private Integer quantity;
-    @NotNull(message = "Invalid input")
+    @NotNull(message = "Calories cannot be empty")
     @Min(value = 1, message = "Calories should be more than 0")
     private Integer calories;
-    @NotNull(message = "Calories cannot be empty")
+    @NotNull(message = "Protein cannot be empty")
     @DecimalMin(value = "0.0")
     private Double protein;
     @NotNull(message = "Fat cannot be empty")
