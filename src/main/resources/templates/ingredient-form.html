@@ -8,84 +8,88 @@
 <body>
 
 <header th:replace="fragments :: navigator"></header>
-<div class="container">
-    <form class="col-md-12 form-container" th:action="@{/ingredients/add}" th:object="${ingredient}" method="post">
-        <h1>Add 100 g Ingredient</h1>
-        <input type="hidden" th:field="*{id}" th:value="*{id}">
-        <div class="row col-md-12 form-row-container">
-            <div class="col-md-4">
-                <label for="exampleFormControlInput1">Ingredient</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Enter name"
-                       th:field="*{name}" th:value="*{name}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('name')}"
-                     th:errors="*{name}"></div>
-            </div>
-            <div class="col-md-4">
-                <label for="exampleFormControlInput2">Calories</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="0"
-                       th:field="*{calories}" th:value="*{calories}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('calories')}"
-                     th:errors="*{calories}">
+<div class="container-fluid">
+    <div class="form-container">
+        <form class="col-md-12" th:action="@{/ingredients/add}" th:object="${ingredient}" method="post">
+            <h1>Add/Edit Ingredient</h1>
+            <input type="hidden" th:field="*{id}" th:value="*{id}">
+            <div class="row col-md-12 form-row-container">
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput1">Ingredient</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Enter name"
+                           th:field="*{name}" th:value="*{name}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}"></div>
+                </div>
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput2">Weight</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="0"
+                           th:field="*{quantity}" th:value="*{quantity}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('quantity')}"
+                         th:errors="*{quantity}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput3">Unit</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput3" placeholder="g or ml"
+                           th:field="*{unit}" th:value="*{unit}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('unit')}"
+                         th:errors="*{unit}">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <label for="exampleFormControlInput3">Protein</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput3" placeholder="0.00"
-                       th:field="*{protein}" th:value="*{protein}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('protein')}"
-                     th:errors="*{protein}">
+            <div class="row col-md-12 form-row-container">
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput4">Kcal</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput4" placeholder="0"
+                           th:field="*{calories}" th:value="*{calories}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('calories')}"
+                         th:errors="*{calories}">
+                    </div>
                 </div>
-<!--                <div class="error-row-container text-danger" role="alert">-->
-<!--                    <p th:if="${#fields.hasErrors('protein')}">Invalid Input</p>-->
-<!--                </div>-->
-            </div>
-        </div>
-
-        <div class="row col-md-12 form-row-container">
-            <div class="col-md-4">
-                <label for="exampleFormControlInput4">Fat</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput4" placeholder="0.00"
-                       th:field="*{fat}" th:value="*{fat}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('fat')}"
-                     th:errors="*{fat}">
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput5">Protein</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput5" placeholder="0.00"
+                           th:field="*{protein}" th:value="*{protein}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('protein')}"
+                         th:errors="*{protein}">
+                    </div>
                 </div>
-<!--                <div class="error-row-container text-danger" role="alert">-->
-<!--                    <p th:if="${#fields.hasErrors('protein')}">Invalid Input</p>-->
-<!--                </div>-->
-            </div>
-            <div class="col-md-4">
-                <label for="exampleFormControlInput5">Carbs</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput5" placeholder="0.00"
-                       th:field="*{carbs}" th:value="*{carbs}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('carbs')}"
-                     th:errors="*{carbs}">
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput6">Fat</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput6" placeholder="0.00"
+                           th:field="*{fat}" th:value="*{fat}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('fat')}"
+                         th:errors="*{fat}">
+                    </div>
                 </div>
-<!--                <div class="error-row-container text-danger" role="alert">-->
-<!--                    <p th:if="${#fields.hasErrors('carbs')}">Invalid Input</p>-->
-<!--                </div>-->
             </div>
-            <div class="col-md-4">
-                <label for="exampleFormControlInput7">Fiber</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput7" placeholder="0.00"
-                       th:field="*{fiber}" th:value="*{fiber}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('fiber')}"
-                     th:errors="*{fiber}">
+            <div class="row col-md-12 form-row-container">
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput7">Carbs</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput7" placeholder="0.00"
+                           th:field="*{carbs}" th:value="*{carbs}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('carbs')}"
+                         th:errors="*{carbs}">
+                    </div>
                 </div>
-<!--                <div class="error-row-container text-danger" role="alert">-->
-<!--                    <p th:if="${#fields.hasErrors('fiber')}">Invalid Input</p>-->
-<!--                </div>-->
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput8">Fiber</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput8" placeholder="0.00"
+                           th:field="*{fiber}" th:value="*{fiber}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('fiber')}"
+                         th:errors="*{fiber}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label>Action</label>
+                    <div class="col-12 col-md-12 form-row-buttons">
+                        <button type="submit" class="btn btn-success  col-12 col-md-12 find-button">Send</button>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row col-md-12 button-row-container">
-            <div class="col-md-6">
-                <button type="reset" class="btn btn-warning  col-md-8 find-button">Reset</button>
-            </div>
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-success col-md-8 find-button">Send</button>
-            </div>
-
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 </body>

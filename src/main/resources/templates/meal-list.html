@@ -9,19 +9,19 @@
 
 <header th:replace="fragments :: navigator"></header>
 
-<div class="container">
+<div class="container-fluid">
     <form class="col-md-12 form-container" th:action="@{/meals/find/date}" th:object="${meals}" method="post">
-        <h1>Find Meals</h1>
+        <h1>Find Meals by date</h1>
         <div class="row col-md-12 form-row-container">
             <div class="col-md-4">
-                <label for="exampleFormControlInput1">Date from:</label>
+                <label for="exampleFormControlInput1">From:</label>
                 <input type="date" class="form-control col-md-12" id="exampleFormControlInput1"
                        placeholder="From: yyyy-mm-dd" th:name="from">
                 <div class="error-row text-danger" role="alert" th:if="${notFoundInRange}"
                      th:text="${notFoundInRange}"></div>
             </div>
             <div class="col-md-4">
-                <label for="exampleFormControlInput2">Date to:</label>
+                <label for="exampleFormControlInput2">To:</label>
                 <input type="date" class="form-control col-md-12" id="exampleFormControlInput2"
                        placeholder="To: yyyy-mm-dd" th:name="to">
                 <div class="error-row text-danger" role="alert" th:if="${notFoundInRange}"
@@ -42,35 +42,44 @@
             <div class="row col-md-12 list-header-row">
                 <div class="col-md-2">Name</div>
                 <div class="col-md-1">Energy</div>
-                <div class="col-md-1">Protein</div>
-                <div class="col-md-1">Fat</div>
-                <div class="col-md-1">Carbs</div>
-                <div class="col-md-1">Fiber</div>
+                <div class="col-md-5">Nutrients</div>
                 <div class="col-md-2">Date</div>
-                <div class="col-md-3">Action</div> <!--buttons-->
+                <div class="col-md-2">Action</div> <!--buttons-->
             </div>
         </div>
 
         <div class="row col-md-12 list-result-row align-items-center" th:each="meal : ${meals}">
-            <div class="col-md-2 list-result-row" th:text="${meal.getMealName()}"></div>
-            <div class="col-md-1 list-result-row" th:text="${meal.getTotalKcal() == null} ? '0 kcal' : ${meal.getTotalKcal() + ' kcal'}"></div>
-            <div class="col-md-1 list-result-row" th:text="${meal.getTotalProtein() == null} ? '0 g' : ${meal.getTotalProtein() + ' g'}"></div>
-            <div class="col-md-1 list-result-row" th:text="${meal.getTotalFat() == null} ? '0 g' : ${meal.getTotalFat() + ' g'}"></div>
-            <div class="col-md-1 list-result-row" th:text="${meal.getTotalCarbs() == null} ? '0 g' : ${meal.getTotalCarbs() + ' g'}"></div>
-            <div class="col-md-1 list-result-row" th:text="${meal.getTotalFiber() == null} ? '0 g' : ${meal.getTotalFiber() + ' g'}"></div>
-            <div class="col-md-2 list-result-row" th:text="${meal.getDate()}"></div>
-            <div class="row col-md-3 action-buttons">
-                <div class="col-md-6 action-buttons">
-                    <a th:href="@{'/meals/ingredients/'+ ${meal.getId()}}">
-                        <button type="button" class="btn btn-primary find-button col-md-12 btn-sm">Ingredients</button>
-                    </a>
+            <div class="col-md-2" th:text="${meal.getMealName()}"></div>
+            <div class="col-md-1"
+                 th:text="${meal.getTotalKcal() == null} ? '0 kcal' : ${meal.getTotalKcal() + ' kcal'}"></div>
+            <div class="col-md-5 list-ingredients">
+                <div class="row col-md-12 list-ingredients">
+                    <div class="col-md-6 list-ingredients">
+                        <p th:text="'Protn.: ' + ${meal.getTotalProtein() + 'g'}"></p>
+                        <p th:text="'Fat: ' + ${meal.getTotalFat() + 'g'}"></p>
+                    </div>
+                    <div class="col-md-6 list-ingredients">
+                        <p th:text="'Carbs: ' + ${meal.getTotalCarbs() + 'g'}"></p>
+                        <p th:text="'Fiber: ' + ${meal.getTotalCarbs() + 'g'}"></p>
+                    </div>
                 </div>
-                <div class="col-md-6 action-buttons">
-                    <a th:href="@{/meals/delete/{id}(id=${meal.getId()})}">
-                        <button type="button" class="btn btn-danger find-button col-md-12 btn-sm"
-                                th:disabled="${meal.getIngredients().size() != 0}">Remove
-                        </button>
-                    </a>
+            </div>
+            <div class="col-md-2 list-result-row" th:text="${meal.getDate()}"></div>
+            <div class="row col-md-2 list-action-buttons align-items-center">
+                <div class="col-md-12 list-action-buttons">
+                    <div class="col-md-12 list-action-buttons">
+                        <a th:href="@{'/meals/ingredients/'+ ${meal.getId()}}">
+                            <button type="button" class="btn btn-primary row-find-button col-md-12 btn-sm">Details
+                            </button>
+                        </a>
+                    </div>
+                    <div class="col-md-12 list-action-buttons">
+                        <a th:href="@{/meals/delete/{id}(id=${meal.getId()})}">
+                            <button type="button" class="btn btn-danger row-find-button col-md-12 btn-sm"
+                                    th:disabled="${meal.getIngredients().size() != 0}">Remove
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

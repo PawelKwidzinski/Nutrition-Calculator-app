@@ -8,76 +8,83 @@
 <body>
 
 <header th:replace="fragments :: navigator"></header>
-<div class="container">
-    <form class="col-md-12 form-container" th:action="@{/ingredients/search}" th:object="${userInput}" method="post">
-        <h1>Find Ingredients</h1>
-        <div class="row col-md-12 form-row-container">
-            <div class="col-md-4">
-                <label for="exampleFormControlInput1">Ingredient</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Ingredient name"
-                       th:field="*{name}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+<div class="container-fluid">
+    <div class="form-container">
+        <form class="col-md-12" th:action="@{/ingredients/search}" th:object="${userInput}"
+              method="post">
+            <h1>Find Ingredients</h1>
+            <div class="row col-md-12 form-row-container">
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput1">Ingredient</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Name"
+                           th:field="*{name}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput2">Weight</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="0 g/ml"
+                           th:field="*{parameter}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('parameter')}"
+                         th:errors="*{parameter}">
+                    </div>
+                    <div class="error-row-container text-danger" role="alert" th:if="${error != null}"
+                         th:text="${error}">
+                    </div>
+                </div>
+                <div class="col-md-4 col-12">
+                    <label>Action</label>
+                    <div class="col-12 col-md-12 form-row-buttons">
+                        <button type="submit" class="btn btn-success  col-12 col-md-12 find-button">Send</button>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <label for="exampleFormControlInput2">Weight</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput2" placeholder="Weight (gram)"
-                       th:field="*{parameter}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('parameter')}" th:errors="*{parameter}">
+            <div th:if="${foundIngredients != null and !foundIngredients.isEmpty()}">
+                <div class="row col-md-12 list-header-row">
+                    <div class="col-md-1">Image</div>
+                    <div class="col-md-1">Qty</div>
+                    <div class="col-md-2">Food</div>
+                    <div class="col-md-2">Energy</div>
+                    <div class="col-md-3">Nutrients</div>
+                    <div class="col-md-3">Actions</div>
                 </div>
-                <div class="error-row-container text-danger" role="alert" th:if="${error != null}" th:text="${error}">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <label>Action</label>
-                <div class="col-md-12 form-row-buttons">
-                    <button type="submit" class="btn btn-success col-md-12 find-button">Send</button>
-                </div>
-            </div>
-        </div>
-        <div th:if="${foundIngredients != null and !foundIngredients.isEmpty()}">
-            <div class="row col-md-12 list-header-row">
-                <div class="col-md-1">Image</div>
-                <div class="col-md-1">Qty</div>
-                <div class="col-md-2">Food</div>
-                <div class="col-md-2">Energy</div>
-                <div class="col-md-3">Nutrients</div>
-                <div class="col-md-3">Actions</div>
-            </div>
 
-            <div class="row col-md-12 list-result-row align-items-center" th:each="ingredient : ${foundIngredients}">
-                <div class="col-md-1">
-                    <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{/images/food.png}">
-                    <img class="img" th:unless="${ingredient.getImageUrl() == null}"
-                         th:src="@{${ingredient.getImageUrl()}}">
-                </div>
-                <div class="col-md-1" th:text="${ingredient.getQuantity() + ' ' + ingredient.getUnit()}"></div>
-                <div class="col-md-2" th:text="${ingredient.getName()}"></div>
-                <div class="col-md-2 energy">
-                    <p th:text="${ingredient.getCalories() + ' kcal'}"></p>
-                </div>
-                <div class="col-md-3 list-ingredients">
-                    <div class="row col-md-12 list-ingredients">
-                        <div class="col-md-6 list-ingredients">
-                            <p th:text="'Protein: ' + ${ingredient.getProtein() + ' g'}"></p>
-                            <p th:text="'Fat: ' + ${ingredient.getFat() + ' g'}"></p>
-                        </div>
-                        <div class="col-md-6 list-ingredients">
-                            <p th:text="'Carbs: ' + ${ingredient.getCarbs() + ' g'}"></p>
-                            <p th:text="'Fiber: ' + ${ingredient.getFiber() + ' g'}"></p>
+                <div class="row col-md-12 list-result-row align-items-center"
+                     th:each="ingredient : ${foundIngredients}">
+                    <div class="col-md-1">
+                        <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{/images/food.png}">
+                        <img class="img" th:unless="${ingredient.getImageUrl() == null}"
+                             th:src="@{${ingredient.getImageUrl()}}">
+                    </div>
+                    <div class="col-md-1" th:text="${ingredient.getQuantity() + ' ' + ingredient.getUnit()}"></div>
+                    <div class="col-md-2" th:text="${ingredient.getName()}"></div>
+                    <div class="col-md-2 energy">
+                        <p th:text="${ingredient.getCalories() + ' kcal'}"></p>
+                    </div>
+                    <div class="col-md-3 list-ingredients">
+                        <div class="row col-md-12 list-ingredients">
+                            <div class="col-md-6 list-ingredients">
+                                <p th:text="'Protein: ' + ${ingredient.getProtein() + ' g'}"></p>
+                                <p th:text="'Fat: ' + ${ingredient.getFat() + ' g'}"></p>
+                            </div>
+                            <div class="col-md-6 list-ingredients">
+                                <p th:text="'Carbs: ' + ${ingredient.getCarbs() + ' g'}"></p>
+                                <p th:text="'Fiber: ' + ${ingredient.getFiber() + ' g'}"></p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row col-md-3 list-action-buttons">
-                    <div class="col-md-12 list-action-buttons">
-                        <a th:href="@{/ingredients/add/{foodId}(foodId=${ingredient.getFoodId()})}">
-                            <button type="button" class="btn btn-primary find-button col-md-6 btn-sm">Save</button>
-                        </a>
+                    <div class="row col-md-3 list-action-buttons">
+                        <div class="col-md-12 list-action-buttons">
+                            <a th:href="@{/ingredients/add/{foodId}(foodId=${ingredient.getFoodId()})}">
+                                <button type="button" class="btn btn-primary find-button col-md-6 btn-sm">Save</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 </body>

@@ -8,34 +8,36 @@
 <body>
 
 <header th:replace="fragments :: navigator"></header>
-<div class="container">
-    <form class="col-md-12 form-container" th:action="@{/meals/add}" th:object="${meal}" method="post">
-        <h1>Prepare your Meal</h1>
-        <input type="hidden" th:field="*{id}" th:value="*{id}">
-        <div class="row col-md-12 form-row-container">
-            <div class="col-md-4">
-                <label for="exampleFormControlInput1">Meal</label>
-                <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Meal name"
-                       th:field="*{mealName}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('mealName')}"
-                     th:errors="*{mealName}"></div>
-            </div>
-            <div class="col-md-4">
-                <label for="exampleFormControlInput2">Date</label>
-                <input type="date" class="form-control col-md-12" id="exampleFormControlInput2"
-                       placeholder="Weight (gram)"
-                       th:field="*{date}">
-                <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('date')}"
-                     th:errors="*{date}"></div>
-            </div>
-            <div class="col-md-4">
-                <label>Action</label>
-                <div class="col-md-12 form-row-buttons">
-                    <button type="submit" class="btn btn-success col-md-12 find-button">Create</button>
+<div class="container-fluid">
+    <div class="form-container">
+        <form class="col-md-12" th:action="@{/meals/add}" th:object="${meal}" method="post">
+            <h1>Prepare your Meal</h1>
+            <input type="hidden" th:field="*{id}" th:value="*{id}">
+            <div class="row col-md-12 form-row-container">
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput1">Meal</label>
+                    <input class="form-control col-md-12" id="exampleFormControlInput1" placeholder="Meal name"
+                           th:field="*{mealName}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('mealName')}"
+                         th:errors="*{mealName}"></div>
+                </div>
+                <div class="col-md-4">
+                    <label for="exampleFormControlInput2">Date</label>
+                    <input type="date" class="form-control col-md-12" id="exampleFormControlInput2"
+                           placeholder="Weight (gram)"
+                           th:field="*{date}">
+                    <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('date')}"
+                         th:errors="*{date}"></div>
+                </div>
+                <div class="col-md-4">
+                    <label>Action</label>
+                    <div class="col-md-12 form-row-buttons">
+                        <button type="submit" class="btn btn-success col-md-12 find-button">Create</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 </body>
