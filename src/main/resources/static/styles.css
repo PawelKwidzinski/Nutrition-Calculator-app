@@ -37,6 +37,12 @@ body {
 .container {
     margin: 90px auto 50px;
 }
+
+.container-fluid {
+    margin: 90px auto 50px;
+    width: 60vw;
+}
+
 .search {
     padding: 0;
 }
@@ -153,7 +159,6 @@ body {
     border: solid 1px #5C6873;
     font-weight: bold;
     text-indent: 5px;
-
 }
 
 .form-row-container option {
@@ -226,8 +231,16 @@ select {
     border-radius: 15px;
     border: solid 1px #5C6873;
     position: center;
-    margin: 7px 0;
+    margin: 5px 0;
     height: calc(1.5em + 1rem + 2px);
+}
+
+.row-find-button{
+    border-radius: 15px;
+    border: solid 1px #5C6873;
+    position: center;
+    margin: 5px 0;
+    height: calc(1rem + 1rem + 2px);
 }
 
 .frame {
@@ -236,8 +249,8 @@ select {
 }
 
 .img {
-    max-height: 100%;
-    max-width: 100%;
+    max-height: 50%;
+    max-width: 50%;
     width: auto;
     height: auto;
     /*position: absolute;*/
@@ -248,14 +261,7 @@ select {
     margin: 2px;
 }
 
-.stretched-link:after {
-    pointer-events: none;
-}
-
 @media (min-width: 320px) and (orientation: portrait) {
-    .container {
-        margin: 140px auto 50px;
-    }
 
     button.navbar-toggler {
         font-size: 36px;
@@ -271,25 +277,84 @@ select {
         font-size: 66px;
     }
 
-    .welcome h1 {
-        margin: 300px auto;
-        font-size: 76px;
+    .container-fluid {
+        margin: 160px auto 50px;
+        width: 97vw;
     }
 
-    .card-body h5 {
-        font-size: 36px;
+    /*Search, ingredient, meal form*/
+    .form-row-container {
+        height: 215px;
     }
 
-    .card-body p {
-        font-size: 26px;
+    .form-container h1 {
+        font-size: 60px;
     }
 
-    .card-body a {
-        font-size: 20px;
+    .form-row-container label {
+        font-size: 42px;
+    }
+    .form-row-container input {
+        height: 76px;
+        font-size: 32px;
+        display: block;
     }
 
-    .stretched-link:after {
-        pointer-events: auto;
+    .form-row-container select {
+        font-size: 42px;
+    }
+
+    .form-row-container p {
+        font-size: 42px;
+    }
+
+    /*form buttons*/
+    .form-row-buttons button {
+        height: 76px;
+        font-size: 34px;
+    }
+
+    .find-button{
+        border-radius: 15px;
+        border: solid 1px #5C6873;
+        position: center;
+        margin: 5px 0;
+        height: calc(1.5em + 1rem + 2px);
+    }
+
+    .row-find-button{
+        height: calc(1.5rem + 1rem + 2px);
+    }
+
+    /*text validations*/
+    .text-danger {
+        line-height: 17px;
+        padding: 2px 2px;
+        margin: 2px 2px;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    /* List ingredients and meals*/
+    .list-container h1 {
+        font-size: 60px;
+    }
+
+    .list-header-row {
+        font-size: 2rem;
+    }
+
+    .img {
+        max-height: 75%;
+        max-width: 75%;
+    }
+
+    .list-result-row {
+        font-size: 1.5rem;
+    }
+
+    .list-action-buttons button {
+        font-size: 24px;
     }
 }
 
