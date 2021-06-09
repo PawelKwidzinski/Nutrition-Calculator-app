@@ -88,8 +88,6 @@ public class IngredientController {
         if (result.hasErrors()) {
             return "ingredient-form";
         }
-        ingredient.setQuantity(100);
-        ingredient.setUnit("g");
         ingredientService.saveIngredient(ingredient);
         return "redirect:/ingredients/list";
     }

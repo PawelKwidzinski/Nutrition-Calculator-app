@@ -18,7 +18,10 @@ public class Ingredient {
     @NotBlank(message = "Name cannot be empty")
     private String name;
     private String imageUrl;
+    @NotBlank(message = "Unit cannot be empty")
     private String unit;
+    @NotNull(message = "Quantity cannot be empty")
+    @Min(value = 1, message = "Quantity should be more than 0")
     private Integer quantity;
     @NotNull(message = "Calories cannot be empty")
     @Min(value = 1, message = "Calories should be more than 0")
