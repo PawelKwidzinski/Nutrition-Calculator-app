@@ -107,6 +107,48 @@ body {
     padding-left: 5px;
 }
 
+.form-meal-ingredient {
+    border-radius: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #D98E04;
+    border: solid 1px #D98E04;
+    margin: 10px 0;
+    height: 180px;
+    padding: 2px 0 2px 0;
+}
+.form-meal-ingredient label{
+    text-align: center;
+    padding: 5px 5px;
+    /*margin: 5px 5px;*/
+}
+
+.form-meal-ingredient input {
+    border-radius: 15px;
+    border: solid 1px #5C6873;
+}
+
+.form-meal-ingredient p {
+    border-radius: 15px;
+    border: solid 1px #5C6873;
+    padding-top: 9px;
+    margin-top: 0;
+}
+
+.form-meal-ingredient select {
+    margin-top: 0;
+    /*padding-top: 9px;*/
+    border-radius: 15px;
+    border: solid 1px #5C6873;
+    font-weight: bold;
+    text-indent: 5px;
+}
+
+.form-meal-ingredient option {
+    text-indent: 5px;
+}
+
 .form-container {
     background-color: #67747f;
     text-align: center;
@@ -154,16 +196,16 @@ body {
     padding-top: 9px;
 }
 
-.form-row-container select {
-    border-radius: 15px;
-    border: solid 1px #5C6873;
-    font-weight: bold;
-    text-indent: 5px;
-}
+/*.form-row-container select {*/
+/*    border-radius: 15px;*/
+/*    border: solid 1px #5C6873;*/
+/*    font-weight: bold;*/
+/*    text-indent: 5px;*/
+/*}*/
 
-.form-row-container option {
-    text-indent: 5px;
-}
+/*.form-row-container option {*/
+/*    text-indent: 5px;*/
+/*}*/
 
 .error-row-container {
     text-align: center;
@@ -227,6 +269,10 @@ select {
     padding: 2px 0 2px 0;
 }
 
+.meal-action-button {
+    border-radius: 15px;
+}
+
 .find-button{
     border-radius: 15px;
     border: solid 1px #5C6873;
@@ -261,7 +307,8 @@ select {
     margin: 2px;
 }
 
-@media (min-width: 320px) and (orientation: portrait) {
+
+@media (min-width: 320px)  and (orientation: portrait) {
 
     button.navbar-toggler {
         font-size: 36px;
@@ -278,8 +325,8 @@ select {
     }
 
     .container-fluid {
-        margin: 160px auto 50px;
-        width: 97vw;
+        margin: 145px auto 50px;
+        width: 100vw;
     }
 
     /*Search, ingredient, meal form*/
@@ -304,7 +351,28 @@ select {
         font-size: 42px;
     }
 
-    .form-row-container p {
+    .form-meal-ingredient {
+        height: 280px;
+    }
+
+    .form-meal-ingredient h1 {
+        font-size: 60px;
+    }
+
+    .form-meal-ingredient label {
+        font-size: 44px;
+    }
+    .form-meal-ingredient input {
+        height: 76px;
+        font-size: 32px;
+        display: block;
+    }
+
+    .form-meal-ingredient select {
+        font-size: 42px;
+    }
+
+    .form-meal-ingredient p {
         font-size: 42px;
     }
 
@@ -356,6 +424,47 @@ select {
     .list-action-buttons button {
         font-size: 24px;
     }
+    /*TODO*/
+    /*@media (max-width: 1025px)and (orientation: portrait){*/
+    /*    button.navbar-toggler {*/
+    /*        font-size: 26px;*/
+    /*        border: 4px solid transparent;*/
+    /*    }*/
+
+    /*    .navbar.fixed-top {*/
+    /*        font-size: 20px;*/
+    /*    }*/
+
+    /*    .navbar-brand {*/
+    /*        margin: 0 auto;*/
+    /*        font-size: 24px;*/
+    /*    }*/
+    /*    .container-fluid {*/
+    /*        margin: 90px auto 50px;*/
+    /*        width: 100vw;*/
+    /*    }*/
+    /*}*/
+    /*@media (min-width: 568px) and (max-width: 1023px)and (orientation: landscape) {*/
+
+    /*    button.navbar-toggler {*/
+    /*        font-size: 26px;*/
+    /*        border: 4px solid transparent;*/
+    /*    }*/
+
+    /*    .navbar.fixed-top {*/
+    /*        font-size: 40px;*/
+    /*    }*/
+
+    /*    .navbar-brand {*/
+    /*        margin: 0 auto;*/
+    /*        font-size: 34px;*/
+    /*    }*/
+
+    /*    .container-fluid {*/
+    /*        margin: 90px auto 50px;*/
+    /*        width: 100vw;*/
+    /*    }*/
+    /*}*/
 }
 
 
