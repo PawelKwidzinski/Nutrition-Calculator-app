@@ -55,12 +55,12 @@
             <div class="col-md-5 list-ingredients">
                 <div class="row col-md-12 list-ingredients">
                     <div class="col-md-6 list-ingredients">
-                        <p th:text="'Protn.: ' + ${meal.getTotalProtein() + 'g'}"></p>
-                        <p th:text="'Fat: ' + ${meal.getTotalFat() + 'g'}"></p>
+                        <p th:text="${meal.getTotalProtein() == null} ? 'Protein: 0g' : 'Protein: ' + ${meal.getTotalProtein()+ 'g'}"></p>
+                        <p th:text="${meal.getTotalFat() == null} ? 'Fat: 0g' : 'Fat: ' + ${meal.getTotalFat()+ 'g'}"></p>
                     </div>
                     <div class="col-md-6 list-ingredients">
-                        <p th:text="'Carbs: ' + ${meal.getTotalCarbs() + 'g'}"></p>
-                        <p th:text="'Fiber: ' + ${meal.getTotalCarbs() + 'g'}"></p>
+                        <p th:text="${meal.getTotalCarbs() == null} ? 'Carbs: 0g' : 'Carbs: ' + ${meal.getTotalCarbs()+ 'g'}"></p>
+                        <p th:text="${meal.getTotalFat() == null} ? 'Fiber: 0g' : 'Fiber: ' + ${meal.getTotalFiber()+ 'g'}"></p>
                     </div>
                 </div>
             </div>
