@@ -21,23 +21,6 @@ body {
     font-weight: 700;
 }
 
-.welcome h1 {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 400;
-    text-align: center;
-    margin: 150px auto;
-    padding: 10px 10px;
-    color: black;
-    border: solid 1px #5a5a5a;
-    border-radius: 5px;
-    background-color: white;
-    opacity: 0.95;
-}
-
-.container {
-    margin: 90px auto 50px;
-}
-
 .container-fluid {
     margin: 90px auto 50px;
     width: 60vw;
@@ -51,6 +34,7 @@ body {
     margin: 0 auto;
     opacity: 0.95;
 }
+
 .error {
     margin-top: 25px;
 }
@@ -103,7 +87,7 @@ body {
 }
 
 .list-result-row .energy {
-   padding-right: 5px;
+    padding-right: 5px;
     padding-left: 5px;
 }
 
@@ -118,7 +102,8 @@ body {
     height: 180px;
     padding: 2px 0 2px 0;
 }
-.form-meal-ingredient label{
+
+.form-meal-ingredient label {
     text-align: center;
     padding: 5px 5px;
     /*margin: 5px 5px;*/
@@ -179,7 +164,7 @@ body {
     padding: 2px 0 2px 0;
 }
 
-.form-row-container label{
+.form-row-container label {
     text-align: center;
     padding: 5px 5px;
     margin: 5px 5px;
@@ -196,23 +181,13 @@ body {
     padding-top: 9px;
 }
 
-/*.form-row-container select {*/
-/*    border-radius: 15px;*/
-/*    border: solid 1px #5C6873;*/
-/*    font-weight: bold;*/
-/*    text-indent: 5px;*/
-/*}*/
-
-/*.form-row-container option {*/
-/*    text-indent: 5px;*/
-/*}*/
-
 .error-row-container {
     text-align: center;
     font-size: 14px;
     margin: 12px 0 0;
     padding: 5px 0 2px 0;
 }
+
 .error-row {
     text-align: center;
     font-size: 14px;
@@ -238,6 +213,7 @@ select {
     line-height: 0;
     font-weight: bold;
 }
+
 .action-buttons {
     padding: 2px;
 }
@@ -256,6 +232,7 @@ select {
     position: center;
     padding: 0;
 }
+
 .find-row {
     margin: -15px auto;
 }
@@ -273,7 +250,7 @@ select {
     border-radius: 15px;
 }
 
-.find-button{
+.find-button {
     border-radius: 15px;
     border: solid 1px #5C6873;
     position: center;
@@ -281,7 +258,7 @@ select {
     height: calc(1.5em + 1rem + 2px);
 }
 
-.row-find-button{
+.row-find-button {
     border-radius: 15px;
     border: solid 1px #5C6873;
     position: center;
@@ -308,7 +285,7 @@ select {
 }
 
 
-@media (min-width: 320px)  and (orientation: portrait) {
+@media (orientation: portrait) and (min-width: 320px) {
 
     button.navbar-toggler {
         font-size: 36px;
@@ -321,11 +298,11 @@ select {
 
     .navbar-brand {
         margin: 0 auto;
-        font-size: 66px;
+        font-size: 60px;
     }
 
     .container-fluid {
-        margin: 145px auto 50px;
+        margin: 140px auto 50px;
         width: 100vw;
     }
 
@@ -341,6 +318,7 @@ select {
     .form-row-container label {
         font-size: 42px;
     }
+
     .form-row-container input {
         height: 76px;
         font-size: 32px;
@@ -362,6 +340,7 @@ select {
     .form-meal-ingredient label {
         font-size: 44px;
     }
+
     .form-meal-ingredient input {
         height: 76px;
         font-size: 32px;
@@ -382,7 +361,7 @@ select {
         font-size: 34px;
     }
 
-    .find-button{
+    .find-button {
         border-radius: 15px;
         border: solid 1px #5C6873;
         position: center;
@@ -390,7 +369,7 @@ select {
         height: calc(1.5em + 1rem + 2px);
     }
 
-    .row-find-button{
+    .row-find-button {
         height: calc(1.5rem + 1rem + 2px);
     }
 
@@ -424,48 +403,106 @@ select {
     .list-action-buttons button {
         font-size: 24px;
     }
-    /*TODO*/
-    /*@media (max-width: 1025px)and (orientation: portrait){*/
-    /*    button.navbar-toggler {*/
-    /*        font-size: 26px;*/
-    /*        border: 4px solid transparent;*/
-    /*    }*/
-
-    /*    .navbar.fixed-top {*/
-    /*        font-size: 20px;*/
-    /*    }*/
-
-    /*    .navbar-brand {*/
-    /*        margin: 0 auto;*/
-    /*        font-size: 24px;*/
-    /*    }*/
-    /*    .container-fluid {*/
-    /*        margin: 90px auto 50px;*/
-    /*        width: 100vw;*/
-    /*    }*/
-    /*}*/
-    /*@media (min-width: 568px) and (max-width: 1023px)and (orientation: landscape) {*/
-
-    /*    button.navbar-toggler {*/
-    /*        font-size: 26px;*/
-    /*        border: 4px solid transparent;*/
-    /*    }*/
-
-    /*    .navbar.fixed-top {*/
-    /*        font-size: 40px;*/
-    /*    }*/
-
-    /*    .navbar-brand {*/
-    /*        margin: 0 auto;*/
-    /*        font-size: 34px;*/
-    /*    }*/
-
-    /*    .container-fluid {*/
-    /*        margin: 90px auto 50px;*/
-    /*        width: 100vw;*/
-    /*    }*/
-    /*}*/
 }
+
+@media (orientation: portrait) and (min-width: 1023px) and (max-width: 1366px) {
+    button.navbar-toggler {
+        font-size: 24px;
+        border: 4px solid transparent;
+    }
+
+    .navbar.fixed-top {
+        font-size: 24px;
+    }
+
+    .navbar-brand {
+        margin: 0 auto;
+        font-size: 28px;
+    }
+
+    .container-fluid {
+        margin: 90px auto 50px;
+        width: 100vw;
+    }
+
+    .form-row-container {
+        height: 145px;
+    }
+
+    .form-container h1 {
+        font-size: 30px;
+    }
+
+    .form-row-container label {
+        font-size: 24px;
+    }
+
+    .form-row-container input {
+        height: 36px;
+        font-size: 20px;
+        display: block;
+    }
+
+    .form-row-container select {
+        font-size: 24px;
+    }
+    .form-row-buttons button {
+        height: 38px;
+        font-size: 18px;
+    }
+
+    .text-danger {
+        line-height: 17px;
+        padding: 2px 2px;
+        margin: 2px 2px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+        .form-meal-ingredient {
+            height: 180px;
+        }
+
+        .form-meal-ingredient h1 {
+            font-size: 60px;
+        }
+
+        .form-meal-ingredient label {
+            font-size: 24px;
+        }
+
+        .form-meal-ingredient input {
+            height: 76px;
+            font-size: 32px;
+            display: block;
+        }
+
+        .form-meal-ingredient select {
+            font-size: 20px;
+        }
+
+        .form-meal-ingredient p {
+            font-size: 20px;
+        }
+
+        .form-row-buttons button {
+            height: 34px;
+            font-size: 16px;
+        }
+
+    .list-header-row {
+        font-size: 1.2rem;
+    }
+
+    .list-result-row {
+        font-size: 1rem;
+    }
+
+    .list-action-buttons button {
+        font-size: 16px;
+    }
+}
+
 
 
 
