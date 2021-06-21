@@ -112,7 +112,7 @@ public class IngredientController {
     @GetMapping("/delete/{id}")
     public String deleteIngredient(HttpServletRequest request, @PathVariable(name = "id") Long id) {
         String referer = request.getHeader("referer");
-        ingredientService.deleteIngredient(id);
+        ingredientService.deleteIngredientById(id);
         if (referer != null) {
             return "redirect:" + referer;
         }
