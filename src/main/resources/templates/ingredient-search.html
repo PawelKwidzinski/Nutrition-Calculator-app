@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Welcome</title>
     <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
 </head>
@@ -14,17 +15,17 @@
               method="post">
             <h1>Find Ingredients</h1>
             <div class="row form-row-container">
-                <div class="col-4">
+                <div class="col-4 columns">
                     <label for="exampleFormControlInput1">Ingredient</label>
-                    <input class="form-control col-12" id="exampleFormControlInput1" placeholder="Name"
+                    <input class=" col-12 columns" id="exampleFormControlInput1" placeholder="Name"
                            th:field="*{name}">
                     <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('name')}"
                          th:errors="*{name}">
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4 columns">
                     <label for="exampleFormControlInput2">Weight</label>
-                    <input class="form-control col-12" id="exampleFormControlInput2" placeholder="0 g/ml"
+                    <input class=" col-12 columns" id="exampleFormControlInput2" placeholder="0 g/ml"
                            th:field="*{parameter}">
                     <div class="error-row-container text-danger" role="alert" th:if="${#fields.hasErrors('parameter')}"
                          th:errors="*{parameter}">
@@ -33,53 +34,50 @@
                          th:text="${error}">
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-4 columns">
                     <label>Action</label>
-                    <div class="col-12 form-row-buttons">
-                        <button type="submit" class="btn btn-success  col-12 find-button">Send</button>
+                    <div class="col-12 columns">
+                        <button type="submit" class="btn btn-success col-12 find-button">Send</button>
                     </div>
                 </div>
             </div>
             <div th:if="${foundIngredients != null and !foundIngredients.isEmpty()}">
                 <div class="row col-12 list-header-row">
-                    <div class="col-1">Image</div>
-                    <div class="col-1">Qty</div>
-                    <div class="col-2">Food</div>
-                    <div class="col-2">Energy</div>
-                    <div class="col-3">Nutrients</div>
-                    <div class="col-3">Actions</div>
+                    <div class="col-2 columns">Image</div>
+                    <div class="col-2 columns">Food</div>
+                    <div class="col-1 columns">Energy</div>
+                    <div class="col-5 columns">Nutrients</div>
+                    <div class="col-2 columns">Actions</div>
                 </div>
 
-                <div class="row col-12 list-result-row align-items-center"
-                     th:each="ingredient : ${foundIngredients}">
-                    <div class="col-1">
+                <div class="row col-12 list-result-row align-items-center" th:each="ingredient : ${foundIngredients}">
+                    <div class="col-2 list-columns">
                         <img class="img" th:if="${ingredient.getImageUrl() == null}" th:src="@{/images/food.png}">
                         <img class="img" th:unless="${ingredient.getImageUrl() == null}"
                              th:src="@{${ingredient.getImageUrl()}}">
                     </div>
-                    <div class="col-1" th:text="${ingredient.getQuantity() + ' ' + ingredient.getUnit()}"></div>
-                    <div class="col-2" th:text="${ingredient.getName()}"></div>
-                    <div class="col-2 energy">
+                    <div class="col-2 list-columns">
+                        <p th:text="${ingredient.getName() + ' ' + ingredient.getQuantity() + ingredient.getUnit()}"></p>
+                    </div>
+                    <div class="col-1 list-columns">
                         <p th:text="${ingredient.getCalories() + ' kcal'}"></p>
                     </div>
-                    <div class="col-3 list-ingredients">
-                        <div class="row col-12 list-ingredients">
-                            <div class="col-6 list-ingredients">
-                                <p th:text="'Protein: ' + ${ingredient.getProtein() + ' g'}"></p>
-                                <p th:text="'Fat: ' + ${ingredient.getFat() + ' g'}"></p>
+                    <div class="col-5 list-columns">
+                        <div class="row col-12 list-columns">
+                            <div class="col-6 list-columns">
+                                <p th:text="'Protein: ' + ${ingredient.getProtein() + 'g'}"></p>
+                                <p th:text="'Fat: ' + ${ingredient.getFat() + 'g'}"></p>
                             </div>
-                            <div class="col-6 list-ingredients">
-                                <p th:text="'Carbs: ' + ${ingredient.getCarbs() + ' g'}"></p>
-                                <p th:text="'Fiber: ' + ${ingredient.getFiber() + ' g'}"></p>
+                            <div class="col-6 list-columns">
+                                <p th:text="'Carbs: ' + ${ingredient.getCarbs() + 'g'}"></p>
+                                <p th:text="'Fiber: ' + ${ingredient.getFiber() + 'g'}"></p>
                             </div>
                         </div>
                     </div>
-                    <div class="row col-3 list-action-buttons">
-                        <div class="col-12 list-action-buttons">
+                    <div class="col-2 list-columns">
                             <a th:href="@{/ingredients/add/{foodId}(foodId=${ingredient.getFoodId()})}">
-                                <button type="button" class="btn btn-primary find-button col-md-6 btn-sm">Save</button>
+                                <button type="button" class="btn btn-primary row-find-button col-12">Save</button>
                             </a>
-                        </div>
                     </div>
                 </div>
             </div>
