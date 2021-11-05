@@ -1,14 +1,12 @@
 package pl.kwidzinski.caloriecalculator.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.kwidzinski.caloriecalculator.service.AuthenticateService;
 
@@ -16,13 +14,8 @@ import pl.kwidzinski.caloriecalculator.service.AuthenticateService;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    private final AuthenticateService authenticateService;
-    private final PasswordEncoder passwordEncoder;
+    private AuthenticateService authenticateService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public SecurityConfig(final AuthenticateService authenticateService, final PasswordEncoder passwordEncoder) {
@@ -35,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/css/**",
+                        "/images/**",
                         "/",
                         "/js/**",
                         "/webjars/**",
