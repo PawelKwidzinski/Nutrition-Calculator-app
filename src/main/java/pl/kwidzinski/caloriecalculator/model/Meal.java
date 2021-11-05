@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -40,6 +41,9 @@ public class Meal {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Ingredient> ingredients;
+
+    @ManyToOne()
+    private Account user;
 
     public Meal() {
     }
