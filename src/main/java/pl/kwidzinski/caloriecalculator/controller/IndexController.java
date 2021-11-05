@@ -12,4 +12,9 @@ public class IndexController {
     public String index() {
         return "redirect:/ingredients/search";
     }
+
+    @GetMapping("/login")
+    public String loginForm() {
+        return "login-form";
+    }
 }
