@@ -1,5 +1,6 @@
 package pl.kwidzinski.caloriecalculator.component;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -20,6 +21,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
     private AccountRoleRepository accountRoleRepository;
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
     public DataInitializer(final AccountRepository accountRepository, final AccountRoleRepository accountRoleRepository, final PasswordEncoder passwordEncoder) {
         this.accountRepository = accountRepository;
         this.accountRoleRepository = accountRoleRepository;
@@ -47,6 +49,7 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         if (!accountRepository.existsByUsername(username)){
             Account account = new Account();
             account.setUsername(username);
+            account.setEmail(email);
             account.setPassword(passwordEncoder.encode(password));
 
             Set<AccountRole> userRoles = findRole(roles);
