@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Set;
 
@@ -30,6 +31,14 @@ public class Account {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @Cascade(value = org.hibernate.annotations.CascadeType.DETACH)
     private Set<AccountRole> roles;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
+    private Set<Ingredient> ingredients;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "user")
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
+    private Set<Meal> meals;
 
     public Account() {
     }
@@ -86,5 +95,21 @@ public class Account {
 
     public void setRoles(final Set<AccountRole> roles) {
         this.roles = roles;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(final Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public Set<Meal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(final Set<Meal> meals) {
+        this.meals = meals;
     }
 }
