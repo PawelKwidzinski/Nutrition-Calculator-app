@@ -1,14 +1,18 @@
 package pl.kwidzinski.caloriecalculator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.kwidzinski.caloriecalculator.exceptions.MealCannotDeleteException;
+import pl.kwidzinski.caloriecalculator.model.Account;
 import pl.kwidzinski.caloriecalculator.model.Ingredient;
 import pl.kwidzinski.caloriecalculator.model.Meal;
+import pl.kwidzinski.caloriecalculator.repository.AccountRepository;
 import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
 import pl.kwidzinski.caloriecalculator.repository.MealRepo;
 import pl.kwidzinski.caloriecalculator.util.DataParser;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -16,12 +20,14 @@ import java.util.*;
 public class MealService {
 
     private final IngredientRepo ingredientRepo;
+    private final AccountRepository accountRepository;
     private final MealRepo mealRepo;
     private final DataParser dataParser;
 
     @Autowired
-    public MealService(final IngredientRepo ingredientRepo, final MealRepo mealRepo, final DataParser dataParser) {
+    public MealService(final IngredientRepo ingredientRepo, final AccountRepository accountRepository, final MealRepo mealRepo, final DataParser dataParser) {
         this.ingredientRepo = ingredientRepo;
+        this.accountRepository = accountRepository;
         this.mealRepo = mealRepo;
         this.dataParser = dataParser;
     }
@@ -30,12 +36,17 @@ public class MealService {
         return mealRepo.findById(id);
     }
 
-    public List<Meal> findAll() {
-        return mealRepo.findAll();
+    public List<Meal> findAll(final String username) {
+        Account userAccount = accountRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User %s account not found", username)));
+        return new ArrayList<>(userAccount.getMeals());
     }
 
-    public List<Meal> findAllOrderByDateDesc() {
-        return mealRepo.findAllOrderByDate();
+    public List<Meal> findAllOrderByDateDesc(final String name) {
+        final Account userAccount = accountRepository.findByUsername(name)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User: %s account not found", name)));
+        final Long userId = userAccount.getId();
+        return mealRepo.findAllOrderByDate(userId);
     }
 
     public void addIngredientToMeal(final Long mealId, final Long ingredientId) {
@@ -53,7 +64,10 @@ public class MealService {
         mealRepo.save(meal);
     }
 
-    public void saveMeal(final Meal mealToSave) {
+    public void saveMeal(final Meal mealToSave, final String username) {
+        final Account account = accountRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User: %s not found", username)));
+        mealToSave.setUser(account);
         mealRepo.save(mealToSave);
     }
 
@@ -77,7 +91,7 @@ public class MealService {
     public void removeMeal(Long id) {
         if (mealRepo.existsById(id)) {
             Meal mealToDelete = mealRepo.getOne(id);
-            if (mealToDelete.getIngredients().size() == 0) {
+            if (mealToDelete.getIngredients().isEmpty()) {
                 mealRepo.deleteById(id);
             } else {
                 throw new MealCannotDeleteException(id);
@@ -100,8 +114,11 @@ public class MealService {
         mealRepo.save(meal);
     }
 
-    public List<Meal> findByDate(LocalDate from, LocalDate to) {
-        return mealRepo.findAllByDateBetweenOrderByDateAsc(from, to);
+    public List<Meal> findByDate(String name, LocalDate from, LocalDate to) {
+        final Account account = accountRepository.findByUsername(name)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User: %s not found", name)));
+        final Long userId = account.getId();
+        return mealRepo.findAllByDateBetweenOrderByDateAsc(userId, from, to);
     }
 
     public Integer countTotalKcal(Set<Ingredient> ingredients) {

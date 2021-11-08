@@ -2,30 +2,40 @@ package pl.kwidzinski.caloriecalculator.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.kwidzinski.caloriecalculator.model.Account;
 import pl.kwidzinski.caloriecalculator.model.Ingredient;
+import pl.kwidzinski.caloriecalculator.repository.AccountRepository;
 import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
 @Service
 public class IngredientService {
 
     private final IngredientRepo ingredientRepo;
+    private final AccountRepository accountRepository;
 
     @Autowired
-    public IngredientService(final IngredientRepo ingredientRepo) {
+    public IngredientService(final IngredientRepo ingredientRepo, final AccountRepository accountRepository) {
         this.ingredientRepo = ingredientRepo;
+        this.accountRepository = accountRepository;
     }
 
-    public List<Ingredient> findAll() {
-        return ingredientRepo.findAll();
+    public List<Ingredient> findAll(final String username) {
+        Account userAccount = accountRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User %s account not found", username)));
+        return new ArrayList<>(userAccount.getIngredients());
     }
 
     public Optional<Ingredient> findById(final Long id) {
         return ingredientRepo.findById(id);
     }
 
-    public void saveIngredient(final Ingredient toSave) {
+    public void saveIngredient(final Ingredient toSave, String username) {
+        Account userAccount = accountRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User %s account not found", username)));
+        toSave.setUser(userAccount);
         ingredientRepo.save(toSave);
     }
 

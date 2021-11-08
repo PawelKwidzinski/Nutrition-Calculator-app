@@ -152,4 +152,12 @@ public class Ingredient {
     public void setMeals(final Set<Meal> meals) {
         this.meals = meals;
     }
+
+    public Account getUser() {
+        return user;
+    }
+
+    public void setUser(final Account user) {
+        this.user = user;
+    }
 }

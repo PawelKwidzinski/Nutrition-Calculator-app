@@ -14,7 +14,9 @@ import pl.kwidzinski.caloriecalculator.api.remotedata.DataFetcher;
 import pl.kwidzinski.caloriecalculator.dto.UserInput;
 import pl.kwidzinski.caloriecalculator.service.IngredientService;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -55,7 +57,7 @@ public class IngredientController {
 
             ingredientsFromApi = dataFetcher.fetchDataFromApi(userInput.getName(), weight);
 
-            if (ingredientsFromApi.size() == 0) {
+            if (ingredientsFromApi.isEmpty()) {
                 model.addAttribute("error", "Searching ingredient not found!");
                 return "ingredient-search";
             }
@@ -69,11 +71,13 @@ public class IngredientController {
     }
 
     @GetMapping("/add/{foodId}")
-    public String saveIngredientFromApi(@PathVariable String foodId) {
+    public String saveIngredientFromApi(@PathVariable String foodId, Principal principal) {
         Ingredient toSave = ingredientsFromApi.stream()
                 .filter(element -> Objects.equals(element.getFoodId(), foodId))
-                .findFirst().get();
-        ingredientService.saveIngredient(toSave);
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Ingredient id: %s not found", foodId)));
+
+        ingredientService.saveIngredient(toSave, principal.getName());
         return "redirect:/ingredients/search";
     }
 
@@ -84,17 +88,17 @@ public class IngredientController {
     }
 
     @PostMapping("/add")
-    public String addIngredient(@Validated Ingredient ingredient, BindingResult result) {
+    public String addIngredient(@Validated Ingredient ingredient, BindingResult result, Principal principal) {
         if (result.hasErrors()) {
             return "ingredient-form";
         }
-        ingredientService.saveIngredient(ingredient);
+        ingredientService.saveIngredient(ingredient, principal.getName());
         return "redirect:/ingredients/list";
     }
 
     @GetMapping("/list")
-    public String findAllAddedIngredients(Model model) {
-        List<Ingredient> allIngredients = ingredientService.findAll();
+    public String findAllAddedIngredients(Model model, Principal principal) {
+        List<Ingredient> allIngredients = ingredientService.findAll(principal.getName());
         model.addAttribute("foundIngredients", allIngredients);
         return "ingredient-saved-list";
     }
