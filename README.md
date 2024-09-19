@@ -3,12 +3,13 @@
 Web application to search food. Base on the provided name of ingredient and its weight to calculate nutrition in created meals consumed by the user. Data is from [remote API](https://developer.edamam.com/edamam-docs-nutrition-api) and storaged in remote MySQL Database. The user can also create own ingredients and add them to created meals.
 ## Features:
 * Search ingrediend from API
-* CRUD
-* Filter from/to date
+* CRUD for ingrdients and meals
+* Filter created meals from/to date
+* Security layer -> login page
 ## Technologies
-* Java 8
+* Java 11
 * Maven
-* Spring Boot 2.4.4
+* Spring Boot 2.6.4
 * Hibernate
 * MySql
 * Thymeleaf
@@ -18,16 +19,19 @@ Web application to search food. Base on the provided name of ingredient and its 
 * Model-view-controller (MVC)
 ## Enpoints
 ```
-https://nut-cal.herokuapp.com/ingredients/search
-https://nut-cal.herokuapp.com/ingredients/add
-https://nut-cal.herokuapp.com/ingredients/list
-https://nut-cal.herokuapp.com/ingredients/edit/{id}
-https://nut-cal.herokuapp.com/ingredients/delete/{foodId}/{weight}
-https://nut-cal.herokuapp.com/meals/add
-https://nut-cal.herokuapp.com/meals/list
-https://nut-cal.herokuapp.com/meals/edit/{id}
-https://nut-cal.herokuapp.com/meals/delete/{id}
-https://nut-cal.herokuapp.com/meals/find/date
+https://localhost:xxxx/login
+https://localhost:xxxx/logout
+https://localhost:xxxx/register
+https://localhost:xxxx/ingredients/search
+https://localhost:xxxx/ingredients/add
+https://localhost:xxxx/ingredients/list
+https://localhost:xxxx/ingredients/edit/{id}
+https://localhost:xxxx/ingredients/delete/{foodId}/{weight}
+https://localhost:xxxx/meals/add
+https://localhost:xxxx/meals/list
+https://localhost:xxxx/meals/edit/{id}
+https://localhost:xxxx/meals/delete/{id}
+https://localhost:xxxx/meals/find/date
 
 ```
 ## Configuration
