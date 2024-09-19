@@ -2,8 +2,17 @@ package pl.kwidzinski.caloriecalculator.model;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.DecimalMin;
 import java.util.Set;
 
 @Entity
@@ -41,6 +50,9 @@ public class Ingredient {
 
     @ManyToMany(mappedBy = "ingredients", fetch = FetchType.EAGER)
     private Set<Meal> meals;
+
+    @ManyToOne
+    private Account user;
 
     public Ingredient() {
     }
@@ -139,5 +151,13 @@ public class Ingredient {
 
     public void setMeals(final Set<Meal> meals) {
         this.meals = meals;
+    }
+
+    public Account getUser() {
+        return user;
+    }
+
+    public void setUser(final Account user) {
+        this.user = user;
     }
 }

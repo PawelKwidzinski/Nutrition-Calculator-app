@@ -11,8 +11,9 @@ import java.util.List;
 @Repository
 public interface MealRepo extends JpaRepository<Meal, Long> {
 
-    List<Meal> findAllByDateBetweenOrderByDateAsc(LocalDate from, LocalDate to);
+    @Query("from Meal m where m.user.id=:userId and m.date between :start and :to order by m.date")
+    List<Meal> findAllByDateBetweenOrderByDateAsc(Long userId, LocalDate start, LocalDate to);
 
-    @Query(nativeQuery = true, value = "select * from meals order by date desc")
-    List<Meal> findAllOrderByDate();
+    @Query("from Meal m where m.user.id=:userId order by m.date")
+    List<Meal> findAllOrderByDate(Long userId);
 }

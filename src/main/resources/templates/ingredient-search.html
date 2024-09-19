@@ -11,7 +11,7 @@
 <header th:replace="fragments :: navigator"></header>
 <div class="container-fluid">
     <div class="form-container col-12">
-        <form class="" th:action="@{/ingredients/search}" th:object="${userInput}"
+        <form th:action="@{/ingredients/search}" th:object="${userInput}"
               method="post">
             <h1>Find Ingredients</h1>
             <div class="row form-row-container">

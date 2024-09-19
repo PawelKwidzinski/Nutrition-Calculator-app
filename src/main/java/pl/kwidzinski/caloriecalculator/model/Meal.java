@@ -3,7 +3,13 @@ package pl.kwidzinski.caloriecalculator.model;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -35,6 +41,9 @@ public class Meal {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Ingredient> ingredients;
+
+    @ManyToOne()
+    private Account user;
 
     public Meal() {
     }
@@ -109,5 +118,13 @@ public class Meal {
 
     public void setIngredients(final Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Account getUser() {
+        return user;
+    }
+
+    public void setUser(final Account user) {
+        this.user = user;
     }
 }
