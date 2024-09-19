@@ -98,7 +98,7 @@ public class IngredientController {
 
     @GetMapping("/list")
     public String findAllAddedIngredients(Model model, Principal principal) {
-        List<Ingredient> allIngredients = ingredientService.findAll(principal.getName());
+        List<Ingredient> allIngredients = ingredientService.findAllIngredientsByUsername(principal.getName());
         model.addAttribute("foundIngredients", allIngredients);
         return "ingredient-saved-list";
     }

@@ -56,7 +56,7 @@ public class MealController {
         Optional<Meal> mealOptional = mealService.findById(mealId);
         if (mealOptional.isPresent()) {
             Meal meal = mealOptional.get();
-            List<Ingredient> ingredients = ingredientService.findAll(principal.getName());
+            List<Ingredient> ingredients = ingredientService.findAllIngredientsByUsername(principal.getName());
             model.addAttribute("meal", meal);
             model.addAttribute("ingredients", ingredients);
             return "meal-ingredient-form";

@@ -22,7 +22,7 @@ public class IngredientService {
         this.accountRepository = accountRepository;
     }
 
-    public List<Ingredient> findAll(final String username) {
+    public List<Ingredient> findAllIngredientsByUsername(final String username) {
         Account userAccount = accountRepository.findByUsername(username)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("User %s account not found", username)));
         return new ArrayList<>(userAccount.getIngredients());
