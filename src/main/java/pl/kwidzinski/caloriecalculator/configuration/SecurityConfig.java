@@ -1,61 +1,33 @@
 package pl.kwidzinski.caloriecalculator.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import pl.kwidzinski.caloriecalculator.service.AuthenticateService;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
     private AuthenticateService authenticateService;
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public SecurityConfig(final AuthenticateService authenticateService, final PasswordEncoder passwordEncoder) {
+    public SecurityConfig(final AuthenticateService authenticateService) {
         this.authenticateService = authenticateService;
-        this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/css/**",
-                        "/images/**",
-                        "/",
-                        "/js/**",
-                        "/webjars/**",
-                        "/login",
-                        "/logout",
-                        "/register").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login")
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .permitAll();
+    @Bean
+    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/", "/ingredients/**", "/meals/**").authenticated()
+                        .requestMatchers("/css/**","/images/**","/js/**","/webjars/**","/login/**","/logout",
+                                "/register").permitAll())
+                .formLogin(flc -> flc.loginPage("/login").usernameParameter("username").passwordParameter("password")
+                        .defaultSuccessUrl("/", true));
+
+        return http.build();
     }
 
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        daoAuthenticationProvider.setUserDetailsService(authenticateService);
-
-        auth.authenticationProvider(daoAuthenticationProvider);
-    }
 }

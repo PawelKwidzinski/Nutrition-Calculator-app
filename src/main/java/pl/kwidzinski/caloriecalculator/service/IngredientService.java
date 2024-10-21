@@ -1,5 +1,6 @@
 package pl.kwidzinski.caloriecalculator.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.kwidzinski.caloriecalculator.model.Account;
@@ -7,7 +8,6 @@ import pl.kwidzinski.caloriecalculator.model.Ingredient;
 import pl.kwidzinski.caloriecalculator.repository.AccountRepository;
 import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.*;
 
 @Service

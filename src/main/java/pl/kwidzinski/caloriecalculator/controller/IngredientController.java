@@ -1,5 +1,7 @@
 package pl.kwidzinski.caloriecalculator.controller;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +16,6 @@ import pl.kwidzinski.caloriecalculator.api.remotedata.DataFetcher;
 import pl.kwidzinski.caloriecalculator.dto.UserInput;
 import pl.kwidzinski.caloriecalculator.service.IngredientService;
 
-import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;

@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Welcome</title>
-    <div th:replace="fragments :: headerlinks" th:remove="tag"></div>
+    <div th:replace="~{fragments :: headerlinks}" th:remove="tag"></div>
 </head>
 <body>
 
-<header th:replace="fragments :: navigator"></header>
+<header th:replace="~{fragments :: navigator}"></header>
 <div class="container-fluid">
     <div class="form-container col-12">
         <form th:action="@{/ingredients/add}" th:object="${ingredient}" method="post">
@@ -94,6 +94,6 @@
 </div>
 
 </body>
-<div th:replace="fragments :: footer"></div>
-<div th:replace="fragments :: footerscripts"></div>
+<div th:replace="~{fragments :: footer}"></div>
+<div th:replace="~{fragments :: footerscripts}"></div>
 </html>

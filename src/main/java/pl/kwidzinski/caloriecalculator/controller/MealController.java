@@ -1,5 +1,6 @@
 package pl.kwidzinski.caloriecalculator.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,6 @@ import pl.kwidzinski.caloriecalculator.model.Meal;
 import pl.kwidzinski.caloriecalculator.service.IngredientService;
 import pl.kwidzinski.caloriecalculator.service.MealService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.time.DateTimeException;
 import java.time.LocalDate;
