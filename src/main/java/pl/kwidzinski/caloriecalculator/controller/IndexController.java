@@ -1,5 +1,6 @@
 package pl.kwidzinski.caloriecalculator.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.kwidzinski.caloriecalculator.dto.UserRegistration;
 import pl.kwidzinski.caloriecalculator.service.AccountService;
 
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/")

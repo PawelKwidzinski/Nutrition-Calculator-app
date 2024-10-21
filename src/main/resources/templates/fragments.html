@@ -25,19 +25,19 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/ingredients/search}">Find Ingredient</a>
+                        <a class="nav-link" th:href="@{/ingredients/search}" sec:authorize="isAuthenticated()">Find Ingredient</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/ingredients/add}">Create Ingredient</a>
+                        <a class="nav-link" th:href="@{/ingredients/add}" sec:authorize="isAuthenticated()">Create Ingredient</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/ingredients/list}">Saved Ingredients</a>
+                        <a class="nav-link" th:href="@{/ingredients/list}" sec:authorize="isAuthenticated()">Saved Ingredients</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/meals/add}">Create Meal</a>
+                        <a class="nav-link" th:href="@{/meals/add}"sec:authorize="isAuthenticated()" >Create Meal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/meals/list}">Saved Meals</a>
+                        <a class="nav-link" th:href="@{/meals/list}" sec:authorize="isAuthenticated()">Saved Meals</a>
                     </li>
                 </ul>
                 <div class="mt-2 mt-md-0">

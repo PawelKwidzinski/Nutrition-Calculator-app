@@ -1,5 +1,6 @@
 package pl.kwidzinski.caloriecalculator.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +12,6 @@ import pl.kwidzinski.caloriecalculator.model.Ingredient;
 import pl.kwidzinski.caloriecalculator.repository.AccountRepository;
 import pl.kwidzinski.caloriecalculator.repository.IngredientRepo;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
